@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>WBS</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<link rel="stylesheet" href="bootstrap.min.css">
+</head>
+<body>
+
+    <div class="selections container-fluid">
+        <div class="main">
+            <button class="badge badge-primary badge-pill">New Page</button>
+        </div>
+        <div class="buttons">
+            <button class="btn btn-warning" id="addChildButton">Add Child</button>
+            <button class="btn btn-primary" id="deleteButton">Delete</button>
+            <button class="btn btn-secondary" id="renameButton">Rename</button>
+        </div>
+    </div>
+    <div>
+        <div class="container">
+        <div class="row matop100">
+            <div class="col">
+                <div id="projectNameDiv">
+                    <span id="projectNameSpan">Project Name</span>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="container-fluid">
+        <div class="row matop10">
+            <div class="col dif">
+                <div class="component">
+                    <div class="componentNameDiv">
+                        <span class="componentNameSpan">Component 1</span>
+                    </div>
+                    <div class="childComponentPlace normalComponentChildComponentPlace">
+                        <div class="component">
+                            <div class="componentNameDiv childComponentNameDiv">
+                                <span class="componentNameSpan">Component 1</span>
+                            </div>
+                            <div class="childComponentPlace normalComponentChildComponentPlace">
+                                <div class="component childComponent">
+                                    <div class="componentNameDiv childComponentNameDiv">
+                                        <span class="componentNameSpan">Component 1</span>
+                                    </div>
+                                    <div class="childComponentPlace">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="component childComponent">
+                            <div class="componentNameDiv childComponentNameDiv">
+                                <span class="componentNameSpan">Component 1</span>
+                            </div>
+                            <div class="childComponentPlace">
+                        
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="component otherComponent">
+                    <div class="componentNameDiv">
+                        <span class="componentNameSpan">Other Component 1</span>
+                    </div>
+                    <div class="childComponentPlace otherComponentChildComponentPlace">
+                        <div class="component">
+                            <div class="componentNameDiv childComponentNameDiv">
+                                <span class="componentNameSpan">Component 4</span>
+                            </div>
+                            <div class="childComponentPlace normalComponentChildComponentPlace ">
+                                
+                            </div>
+                        </div>
+                        <div class="component childComponent">
+                            <div class="componentNameDiv childComponentNameDiv">
+                                <span class="componentNameSpan">Component 1</span>
+                            </div>
+                            <div class="childComponentPlace">
+                        
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+    <script src="bootstrap.min.js"></script>
+</body>
+</html>

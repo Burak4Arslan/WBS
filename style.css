@@ -1,0 +1,129 @@
+#projectNameDiv {
+
+    margin: auto;
+    display: table;
+    border-radius: 30px;
+    background-color: #1e90ff;
+    padding: 30px;
+
+}
+
+#projectNameSpan {
+
+    color: khaki;
+
+}
+
+.selections {
+
+    padding: 30px;
+    background-color: #123;
+    text-align: center;
+
+}
+
+.main {
+
+    border: #EEE solid 2px;
+    border-radius: 30px;
+    display: inline-block;
+    padding: 8px;
+
+}
+
+.buttons {
+
+    border: #EEE solid 2px;
+    border-radius: 30px;
+    display: inline-block;
+    padding: 8px;
+
+}
+
+#addChildButton {
+
+    color: red;
+
+}
+
+#deleteButton {
+
+    color: greenyellow;
+
+}
+
+
+.matop100 {
+
+    margin-top: 100px;
+
+}
+.matop10 {
+
+    margin-top: 10px;
+
+}
+
+.dif {
+
+    display: inline-flex;
+
+}
+
+
+.componentNameDiv {
+
+    background-color: red;
+    padding: 20px; 
+    border-radius: 10px;
+    display: inline-block;
+
+}
+
+.normalComponentChildComponentPlace {
+
+    margin-left: 50px;
+
+}
+
+
+.component {
+
+    /* background-color: green; */
+    padding: 20px 20px 0px 0px; 
+
+}
+
+.childComponentNameDiv {
+
+    background-color: greenyellow; 
+
+}
+
+.otherComponent .componentNameDiv {
+
+    margin: 0 44%;
+    background-color: rebeccapurple;
+    color: white;
+    text-align: center;
+
+}
+
+.otherComponent .childComponentPlace .childComponentNameDiv {
+
+    background-color: lightcoral;
+    color: white;
+
+}
+
+.otherComponentChildComponentPlace {
+
+    display: flex;
+
+}
+
+.reverseComponentChildComponentPlace {
+
+    padding: initial;
+
+}
