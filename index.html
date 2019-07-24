@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="myHtml">
 <head>
     <title>WBS</title>
     <meta charset="utf-8">
@@ -8,7 +8,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<link rel="stylesheet" href="bootstrap.min.css">
 </head>
-<body>
+<body class="myBody">
 
     <div class="selections container-fluid">
         <div class="main">
@@ -24,8 +24,10 @@
         <div class="container">
         <div class="row matop100">
             <div class="col">
-                <div id="projectNameDiv">
-                    <span id="projectNameSpan">Project Name</span>
+                <div id="projectDiv">
+                    <div id="projectNameDiv" class="projectNameDiv">
+                        <span id="projectNameSpan" class="nameSpan">Project Name</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -35,17 +37,17 @@
             <div class="col dif">
                 <div class="component">
                     <div class="componentNameDiv">
-                        <span class="componentNameSpan">Component 1</span>
+                        <span class="nameSpan componentNameSpan">Component 1</span>
                     </div>
                     <div class="childComponentPlace normalComponentChildComponentPlace">
                         <div class="component">
                             <div class="componentNameDiv childComponentNameDiv">
-                                <span class="componentNameSpan">Component 1</span>
+                                <span class="nameSpan componentNameSpan">Component 1</span>
                             </div>
                             <div class="childComponentPlace normalComponentChildComponentPlace">
                                 <div class="component childComponent">
                                     <div class="componentNameDiv childComponentNameDiv">
-                                        <span class="componentNameSpan">Component 1</span>
+                                        <span class="componentNameSpan nameSpan">Component 1</span>
                                     </div>
                                     <div class="childComponentPlace">
                                         
@@ -55,7 +57,7 @@
                         </div>
                         <div class="component childComponent">
                             <div class="componentNameDiv childComponentNameDiv">
-                                <span class="componentNameSpan">Component 1</span>
+                                <span class="componentNameSpan nameSpan">Component 1</span>
                             </div>
                             <div class="childComponentPlace">
                         
@@ -67,12 +69,12 @@
 
                 <div class="component otherComponent">
                     <div class="componentNameDiv">
-                        <span class="componentNameSpan">Other Component 1</span>
+                        <span class="componentNameSpan nameSpan">Other Component 1</span>
                     </div>
                     <div class="childComponentPlace otherComponentChildComponentPlace">
                         <div class="component">
                             <div class="componentNameDiv childComponentNameDiv">
-                                <span class="componentNameSpan">Component 4</span>
+                                <span class="componentNameSpan nameSpan">Component 4</span>
                             </div>
                             <div class="childComponentPlace normalComponentChildComponentPlace ">
                                 
@@ -80,7 +82,7 @@
                         </div>
                         <div class="component childComponent">
                             <div class="componentNameDiv childComponentNameDiv">
-                                <span class="componentNameSpan">Component 1</span>
+                                <span class="componentNameSpan nameSpan">Component 1</span>
                             </div>
                             <div class="childComponentPlace">
                         
