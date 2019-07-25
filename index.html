@@ -16,6 +16,7 @@
         </div>
         <div class="buttons">
             <button class="btn btn-warning" id="addChildButton">Add Child</button>
+            <button class="btn btn-dark" id="addSiblingButton">Add Sibling</button>
             <button class="btn btn-primary" id="deleteButton">Delete</button>
             <button class="btn btn-secondary" id="renameButton">Rename</button>
             <button class="btn btn-danger" id="cutButton">Cut</button>
@@ -26,17 +27,17 @@
                 <button class="btn btn-warning" id="normalComponentButton">TaB</button>
                 <button class="btn btn-warning" id="otherComponentButton">SbS</button>
         </div>
-        <div id="colorSchema">
+        <!-- <div id="colorSchema">
             <div id="colorS1" class="cS"></div>
             <div id="colorS2" class="cS"></div>
             <div id="colorS3" class="cS"></div>
-        </div>
+        </div> -->
     </div>
     <div>
         <div class="container">
         <div class="row matop100">
             <div class="col">
-                <div id="projectDiv" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div id="projectDiv" draggable="true" ondragstart=""  ondrop="drop(event)" ondragover="allowDrop(event)">
                     <div id="projectNameDiv" class="projectNameDiv">
                         <span id="projectNameSpan" class="nameSpan">Project Name</span>
                     </div>

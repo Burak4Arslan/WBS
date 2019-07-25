@@ -4,7 +4,6 @@ var oldSelectElement ='';
 var elementToCut='';
 var elementToCopy='';
 let isAnyInputOpen = false;
-var childArray = [];
 
 addDoubleClickEvent(document.getElementById('projectNameDiv'));
 // creatingColorSchema();
@@ -56,6 +55,18 @@ document.getElementById('addChildButton').addEventListener('click',()=>{
     }else {
         addComponent(document.getElementById('mainComponentPlace'))
     }
+});
+
+document.getElementById('addSiblingButton').addEventListener('click',()=>{
+
+    if(oldSelectElement.id == "projectNameDiv") {
+        
+    }else if(oldSelectElement!='') {
+        addComponent(oldSelectElement.parentElement.parentElement.parentElement);
+    }else {
+        
+    }
+
 });
 
 window.addEventListener('keydown',(e)=> {
@@ -339,9 +350,9 @@ function allowDrop(ev) {
     ev.preventDefault();
   }
   
-function drag(ev) {
-    $(oldSelectElement).removeClass('selectedComponent');
-    oldSelectElement = ev.target.parentElement;
+function drag(ev) { console.log(ev.target.id);
+        $(oldSelectElement).removeClass('selectedComponent');
+        oldSelectElement = ev.target.parentElement;
 }
   
 function drop(ev) {
@@ -355,9 +366,11 @@ function drop(ev) {
     if(newParent.className.includes('componentNameSpan')) {
         newParent = newParent.parentElement; 
     }
+    try {
+        newParent.parentElement.querySelector('.childComponentPlace').appendChild(oldSelectElement);
+    } catch(e) {
 
-    newParent.parentElement.querySelector('.childComponentPlace').appendChild(oldSelectElement);
-    
+    }
     // oldSelectElement.querySelector('.componentNameDiv').style.backgroundColor = newParent.style.backgroundColor;
 
     oldSelectElement='';
