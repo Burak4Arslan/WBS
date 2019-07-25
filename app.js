@@ -7,6 +7,7 @@ let isAnyInputOpen = false;
 var childArray = [];
 
 addDoubleClickEvent(document.getElementById('projectNameDiv'));
+// creatingColorSchema();
 
 window.addEventListener('click',(e)=> {
 
@@ -39,12 +40,10 @@ window.addEventListener('click',(e)=> {
             deleteComponent(document.querySelector('.inputForNewName'));
             isAnyInputOpen = false;
         }
-        if(!selectedElement.parentElement.className.includes('cuttedComponent')) {
             $(selectedElement).addClass('selectedComponent');
             oldSelectElement=selectedElement;
-        }
     }
-    // console.log(oldSelectElement);
+    
 })
 
 
@@ -83,8 +82,11 @@ function addComponent(parentComponent) {
     const newChildComponentPlace = document.createElement('div');
 
     newComponent.className = "component";
+    newComponent.setAttribute('ondragover','allowDrop(event)');
     newNameDiv.className = "componentNameDiv"
     newNameDiv.setAttribute('draggable','true');
+    newNameDiv.setAttribute('ondragstart','drag(event)');
+    newNameDiv.setAttribute('ondrop','drop(event)');
     newNameSpan.className = "componentNameSpan nameSpan";
     newNameSpan.innerText = "New Component";
     newChildComponentPlace.className ="childComponentPlace normalComponentChildComponentPlace";
@@ -121,7 +123,7 @@ document.getElementById('deleteButton').addEventListener('click',()=>{
 function deleteComponent(itemToDelete) {
 
     $(itemToDelete).remove();
-
+    oldSelectElement = '';
 }
 
 document.getElementById('renameButton').addEventListener('click',()=> {
@@ -148,8 +150,11 @@ function renameComponent(nameDiv) {
         
         newNameInput.addEventListener('keydown',(e)=> {
             
-            if(e.keyCode==13) {
-                nameDiv.querySelector('span').innerText = newNameInput.value;
+            $(oldSelectElement).removeClass('selectedComponent');
+            oldSelectElement = '';
+
+            if(e.keyCode==13 && newNameInput.value.trim()) {
+                nameDiv.querySelector('span').innerText = newNameInput.value.trim();
                 nameDiv.querySelector('span').style.display='initial';
                 deleteComponent(newNameInput);
                 isAnyInputOpen = false;
@@ -174,6 +179,12 @@ function renameComponent(nameDiv) {
 
 document.getElementById('cutButton').addEventListener('click',()=> {
 
+    cutElement();
+
+})
+
+function cutElement() {
+
     if(oldSelectElement.id == "projectNameDiv") {
         
     }else if(oldSelectElement!='') {
@@ -197,9 +208,15 @@ document.getElementById('cutButton').addEventListener('click',()=> {
         
     }
 
-})
+}
 
 document.getElementById('copyButton').addEventListener('click',()=>{
+
+    copyElement();
+
+})
+
+function copyElement() {
 
     if(oldSelectElement.id == "projectNameDiv") {
         
@@ -224,9 +241,15 @@ document.getElementById('copyButton').addEventListener('click',()=>{
         
     }
 
-})
+}
 
 document.getElementById('pasteButton').addEventListener('click',()=>{
+
+    pasteElement();
+
+})
+
+function pasteElement() {
 
     if(elementToCut!='') {
         if(oldSelectElement!='' && elementToCut != oldSelectElement) {
@@ -260,15 +283,15 @@ document.getElementById('pasteButton').addEventListener('click',()=>{
 
         }
 
-    } 
+    }
 
-})
+}
 
 function addDoubleClickEvent(element){
 
     
     element.addEventListener('dblclick',()=>{
-        console.log(element);
+        
         renameComponent(element);
 
     });
@@ -307,5 +330,74 @@ function randomColorFunction() {
     let blueColor = Math.floor((Math.random()*255)).toString(16);
     colorString += redColor + greenColor +  blueColor;
     return colorString;
+
+}
+
+
+function allowDrop(ev) {
+    // console.log(ev.target);
+    ev.preventDefault();
+  }
+  
+function drag(ev) {
+    $(oldSelectElement).removeClass('selectedComponent');
+    oldSelectElement = ev.target.parentElement;
+}
+  
+function drop(ev) {
+
+    var newParent = ev.target;
+    if(newParent.id=='projectDiv' || newParent.id=='projectNameDiv' || newParent.id=='projectNameSpan') {
+        document.querySelector('.dif').appendChild(oldSelectElement);
+        return;
+    }
+
+    if(newParent.className.includes('componentNameSpan')) {
+        newParent = newParent.parentElement; 
+    }
+
+    newParent.parentElement.querySelector('.childComponentPlace').appendChild(oldSelectElement);
+    
+    // oldSelectElement.querySelector('.componentNameDiv').style.backgroundColor = newParent.style.backgroundColor;
+
+    oldSelectElement='';
+    ev.preventDefault();
+
+}
+
+
+function creatingColorSchema() {
+
+    const colorS1 = document.getElementById('colorS1');
+    const colorS2 = document.getElementById('colorS2');
+    const colorS3 = document.getElementById('colorS3');
+    let a = 30;
+    while(a>20) {
+
+        const newColorDiv = document.createElement('div');
+        $(newColorDiv).addClass('colors');
+        newColorDiv.style.backgroundColor = randomColorFunction();
+        colorS1.appendChild(newColorDiv);
+        a--;
+        console.log('a');
+    }
+    while(a>10) {
+
+        const newColorDiv = document.createElement('div');
+        $(newColorDiv).addClass('colors');
+        newColorDiv.style.backgroundColor = randomColorFunction();
+        colorS2.appendChild(newColorDiv);
+        a--;
+        console.log('a');
+    }
+    while(a>0) {
+
+        const newColorDiv = document.createElement('div');
+        $(newColorDiv).addClass('colors');
+        newColorDiv.style.backgroundColor = randomColorFunction();
+        colorS3.appendChild(newColorDiv);
+        a--;
+        console.log('a');
+    }
 
 }

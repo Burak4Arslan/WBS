@@ -26,12 +26,17 @@
                 <button class="btn btn-warning" id="normalComponentButton">TaB</button>
                 <button class="btn btn-warning" id="otherComponentButton">SbS</button>
         </div>
+        <div id="colorSchema">
+            <div id="colorS1" class="cS"></div>
+            <div id="colorS2" class="cS"></div>
+            <div id="colorS3" class="cS"></div>
+        </div>
     </div>
     <div>
         <div class="container">
         <div class="row matop100">
             <div class="col">
-                <div id="projectDiv">
+                <div id="projectDiv" ondrop="drop(event)" ondragover="allowDrop(event)">
                     <div id="projectNameDiv" class="projectNameDiv">
                         <span id="projectNameSpan" class="nameSpan">Project Name</span>
                     </div>
@@ -40,11 +45,11 @@
         </div>
         </div>
         <div class="container-fluid">
-        <div class="row matop10"  id="mainComponentPlace">
-            <div class="col dif childComponentPlace">
-                
+            <div class="row matop10"  id="mainComponentPlace">
+                <div class="col dif childComponentPlace">
+                    
+                </div>
             </div>
-        </div>
         </div>
         <div class="bottomOfBody"></div>
     </div>

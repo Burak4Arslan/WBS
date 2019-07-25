@@ -130,14 +130,10 @@
 
     text-align: center;
     padding: 20px 20px 0px 0px; 
+    /* border: #CCC solid 1px; */
 
 }
 
-.childComponentNameDiv {
-
-    background-color: greenyellow; 
-
-}
 
 .otherComponent {
 
@@ -161,7 +157,7 @@
 .otherComponentChildComponentPlace {
 
     display: flex;
-
+    margin-bottom: 20px;
 }
 
 .reverseComponentChildComponentPlace {
@@ -184,6 +180,32 @@
 
 .copiedComponent {
 
-    border: #FFF solid 3px;
+    /* font-style: italic; */
+    font-style: oblique;
+    color: #fff;
+
+}
+
+
+.colors {
+
+    width: 15px;
+    height: 15px;
+
+}
+
+#colorSchema {
+
+    border: #EEE solid 2px;
+    border-radius: 30px;
+    display: inline-grid;
+    padding: 8px;
+
+}
+
+.cS {
+
+    display: -webkit-box;
+
 
 }
