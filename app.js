@@ -30,6 +30,12 @@ window.addEventListener('click',(e)=> {
         
     } else {
         $(oldSelectElement).removeClass('selectedComponent');
+        if(document.querySelector('.inputForNewName') 
+        && document.querySelector('.inputForNewName').parentElement!= oldSelectElement) {
+            document.querySelector('.inputForNewName').parentElement.querySelector('span').style.display='initial';
+            deleteComponent(document.querySelector('.inputForNewName'));
+            isAnyInputOpen = false;
+        }
         $(selectedElement).addClass('selectedComponent');
         oldSelectElement=selectedElement;
     }
@@ -60,9 +66,18 @@ function addComponent(parentComponent) {
 
     newComponent.className = "component";
     newNameDiv.className = "componentNameDiv"
+    newNameDiv.setAttribute('draggable','true');
     newNameSpan.className = "componentNameSpan nameSpan";
-    newNameSpan.innerText = "New Component"
-    newChildComponentPlace.className ="childComponentPlace normalComponentChildComponentPlace"
+    newNameSpan.innerText = "New Component";
+    newChildComponentPlace.className ="childComponentPlace normalComponentChildComponentPlace";
+    if(childPlace.className.includes('dif')) {
+
+        newNameDiv.style.backgroundColor = randomColorFunction();
+
+    } else {
+        const color = childPlace.parentElement.querySelector('.componentNameDiv').style.backgroundColor
+        newNameDiv.style.backgroundColor = color;
+    }
 
     childPlace.appendChild(newComponent);
     newComponent.appendChild(newNameDiv);
@@ -115,11 +130,15 @@ function renameComponent(nameDiv) {
         newNameInput.className= 'inputForNewName';
         
         newNameInput.addEventListener('keydown',(e)=> {
-            console.log(e.keyCode);
+            
             if(e.keyCode==13) {
                 nameDiv.querySelector('span').innerText = newNameInput.value;
                 nameDiv.querySelector('span').style.display='initial';
                 deleteComponent(newNameInput);
+                isAnyInputOpen = false;
+            } else if(e.keyCode==27) {
+                document.querySelector('.inputForNewName').parentElement.querySelector('span').style.display='initial';
+                deleteComponent(document.querySelector('.inputForNewName'));
                 isAnyInputOpen = false;
             }
 
@@ -145,5 +164,40 @@ function addDoubleClickEvent(element){
         renameComponent(element);
 
     });
+
+}
+
+
+document.getElementById('otherComponentButton').addEventListener('click',()=>{
+
+    const toSbS = oldSelectElement.parentElement;
+    $(toSbS).addClass('otherComponent');
+    $(toSbS.querySelector('.childComponentPlace'))
+    .removeClass('normalComponentChildComponentPlace');
+    $(toSbS.querySelector('.childComponentPlace'))
+    .addClass('otherComponentChildComponentPlace');
+    
+});
+
+document.getElementById('normalComponentButton').addEventListener('click',()=>{
+
+    $(oldSelectElement.parentElement).removeClass('otherComponent');
+    $(oldSelectElement.parentElement.querySelector('.childComponentPlace'))
+    .removeClass('otherComponentChildComponentPlace');
+    $(oldSelectElement.parentElement.querySelector('.childComponentPlace'))
+    .addClass('normalComponentChildComponentPlace');
+
+});
+
+
+function randomColorFunction() {
+
+    let colorString = '#';
+
+    let redColor = Math.floor((Math.random()*255)).toString(16);
+    let greenColor = Math.floor((Math.random()*255)).toString(16);
+    let blueColor = Math.floor((Math.random()*255)).toString(16);
+    colorString += redColor + greenColor +  blueColor;
+    return colorString;
 
 }

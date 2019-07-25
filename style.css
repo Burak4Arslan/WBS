@@ -5,6 +5,14 @@
     height: 100%;
 }
 
+.bottomOfBody {
+
+    width: 100%;
+    height: 346px;
+    
+
+}
+
 #projectNameDiv {
 
     margin: auto;
@@ -39,6 +47,15 @@
 }
 
 .buttons {
+
+    border: #EEE solid 2px;
+    border-radius: 30px;
+    display: inline-block;
+    padding: 8px;
+
+}
+
+.divStatus {
 
     border: #EEE solid 2px;
     border-radius: 30px;
@@ -89,14 +106,14 @@
 
 .normalComponentChildComponentPlace {
 
-    margin-left: 50px;
+    margin-left: 80px;
 
 }
 
 
 .component {
 
-    /* background-color: green; */
+    text-align: center;
     padding: 20px 20px 0px 0px; 
 
 }
@@ -120,13 +137,13 @@
     text-align: center;
 
 }
+.otherComponent .normalComponentChildComponentPlace .componentNameDiv {
 
-.otherComponent .childComponentPlace .childComponentNameDiv {
-
-    background-color: lightcoral;
-    color: white;
+    background-color: greenyellow;
+    text-align: center;
 
 }
+
 
 .otherComponentChildComponentPlace {
 
