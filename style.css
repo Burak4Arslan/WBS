@@ -5,6 +5,12 @@
     height: 100%;
 }
 
+.upper {
+    
+    padding: 10px;
+
+}
+
 .bottomOfBody {
 
     width: 100%;
@@ -12,6 +18,12 @@
     
 
 }
+
+.sticky {
+    display: inline;
+    position: sticky;
+    left: 0;
+  }
 
 #projectNameDiv {
 
@@ -32,8 +44,10 @@
 .selections {
 
     padding: 30px;
-    background-color: #123;
+    /* background-color: #123; */
     text-align: center;
+    border: #FFA solid 1px;
+    border-radius: 30px;
 
 }
 
@@ -51,8 +65,9 @@
     border: #EEE solid 2px;
     border-radius: 30px;
     display: inline-block;
-    padding: 8px;
-
+    padding: 12px;
+    background-color:rgba(0, 0, 0, 0.2);
+    
 }
 
 .divStatus {
@@ -132,14 +147,12 @@
 
 .otherComponent .componentNameDiv {
 
-    background-color: rebeccapurple;
-    color: white;
     text-align: center;
 
 }
+
 .otherComponent .normalComponentChildComponentPlace .componentNameDiv {
 
-    background-color: greenyellow;
     text-align: center;
 
 }
@@ -160,5 +173,17 @@
 .selectedComponent {
 
     border: #FFA solid 5px;
+
+}
+
+.cuttedComponent {
+
+    opacity: 0.2;
+
+}
+
+.copiedComponent {
+
+    border: #FFF solid 3px;
 
 }

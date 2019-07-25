@@ -1,7 +1,10 @@
 
 var selectedElement='';
 var oldSelectElement ='';
+var elementToCut='';
+var elementToCopy='';
 let isAnyInputOpen = false;
+var childArray = [];
 
 addDoubleClickEvent(document.getElementById('projectNameDiv'));
 
@@ -36,8 +39,10 @@ window.addEventListener('click',(e)=> {
             deleteComponent(document.querySelector('.inputForNewName'));
             isAnyInputOpen = false;
         }
-        $(selectedElement).addClass('selectedComponent');
-        oldSelectElement=selectedElement;
+        if(!selectedElement.parentElement.className.includes('cuttedComponent')) {
+            $(selectedElement).addClass('selectedComponent');
+            oldSelectElement=selectedElement;
+        }
     }
     // console.log(oldSelectElement);
 })
@@ -54,11 +59,24 @@ document.getElementById('addChildButton').addEventListener('click',()=>{
     }
 });
 
+window.addEventListener('keydown',(e)=> {
+
+    
+    if(e.keyCode==46) {
+        if(oldSelectElement!='' && oldSelectElement.id!='projectNameDiv') {
+            deleteComponent(oldSelectElement.parentElement);
+        }
+    } else if (e.keyCode==27 && elementToCut != '') {
+        $(elementToCut).removeClass('cuttedComponent');
+        elementToCut = '';
+    }
+
+})
 
 function addComponent(parentComponent) {
     
     var childPlace = parentComponent.querySelector('.childComponentPlace');
-    // console.log(childPlace);
+    
     const newComponent = document.createElement('div');
     const newNameSpan = document.createElement('span');
     const newNameDiv = document.createElement('div');
@@ -70,10 +88,9 @@ function addComponent(parentComponent) {
     newNameSpan.className = "componentNameSpan nameSpan";
     newNameSpan.innerText = "New Component";
     newChildComponentPlace.className ="childComponentPlace normalComponentChildComponentPlace";
+
     if(childPlace.className.includes('dif')) {
-
         newNameDiv.style.backgroundColor = randomColorFunction();
-
     } else {
         const color = childPlace.parentElement.querySelector('.componentNameDiv').style.backgroundColor
         newNameDiv.style.backgroundColor = color;
@@ -155,6 +172,97 @@ function renameComponent(nameDiv) {
 
 }
 
+document.getElementById('cutButton').addEventListener('click',()=> {
+
+    if(oldSelectElement.id == "projectNameDiv") {
+        
+    }else if(oldSelectElement!='') {
+        if(elementToCut == '') {
+            elementToCut = oldSelectElement.parentElement;
+            $(elementToCut).addClass('cuttedComponent');
+            $(oldSelectElement).removeClass('selectedComponent');
+            oldSelectElement = '';
+        } else {
+            $(elementToCut).removeClass('cuttedComponent');
+            elementToCut = oldSelectElement.parentElement;
+            $(elementToCut).addClass('cuttedComponent');
+            $(oldSelectElement).removeClass('selectedComponent');
+            oldSelectElement = '';
+        }
+        if(elementToCopy != '') {
+            $(elementToCopy).removeClass('copiedComponent');
+            elementToCopy='';
+        }
+    }else {
+        
+    }
+
+})
+
+document.getElementById('copyButton').addEventListener('click',()=>{
+
+    if(oldSelectElement.id == "projectNameDiv") {
+        
+    }else if(oldSelectElement!='') {
+        if(elementToCopy == '') {
+            elementToCopy = oldSelectElement.parentElement;
+            $(elementToCopy).addClass('copiedComponent');
+            $(oldSelectElement).removeClass('selectedComponent');
+            oldSelectElement = '';
+        } else {
+            $(elementToCopy).removeClass('copiedComponent');
+            elementToCopy = oldSelectElement.parentElement;
+            $(elementToCopy).addClass('copiedComponent');
+            $(oldSelectElement).removeClass('selectedComponent');
+            oldSelectElement = '';
+        }
+        if(elementToCut!='') {
+            $(elementToCut).removeClass('cuttedComponent');
+            elementToCut='';
+        }
+    }else {
+        
+    }
+
+})
+
+document.getElementById('pasteButton').addEventListener('click',()=>{
+
+    if(elementToCut!='') {
+        if(oldSelectElement!='' && elementToCut != oldSelectElement) {
+            
+            if(oldSelectElement.id == 'projectNameDiv') {
+                document.querySelector('.dif').appendChild(elementToCut);
+            }else {
+                try {
+                    oldSelectElement.parentElement.querySelector('.childComponentPlace').appendChild(elementToCut);
+                } catch(e) {
+                    alert('Cannot paste Cutted Component to  Cutted Component')
+                }
+            }
+            $(elementToCut).removeClass('cuttedComponent');
+            elementToCut = '';
+
+        }
+    } else if(elementToCopy != '') {
+
+        if(oldSelectElement!='') {
+            $(elementToCopy).removeClass('copiedComponent');
+            var clonedElement = elementToCopy.cloneNode(true);
+            
+            if(oldSelectElement.id == 'projectNameDiv') {
+                document.querySelector('.dif').appendChild(clonedElement);
+            }else {
+                oldSelectElement.parentElement.querySelector('.childComponentPlace').appendChild(clonedElement);
+            }
+            
+            elementToCopy = '';
+
+        }
+
+    } 
+
+})
 
 function addDoubleClickEvent(element){
 
