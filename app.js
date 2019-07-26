@@ -5,6 +5,8 @@ var elementToCut='';
 var elementToCopy='';
 let isAnyInputOpen = false;
 
+const rightSideDiv1 = document.getElementById('rightSideDiv1');
+
 addDoubleClickEvent(document.getElementById('projectNameDiv'));
 // creatingColorSchema();
 
@@ -109,12 +111,23 @@ function addComponent(parentComponent) {
         newNameDiv.style.backgroundColor = color;
     }
 
-    childPlace.appendChild(newComponent);
+    if(childPlace.className.includes('dif')) {
+        $(newComponent).insertBefore(rightSideDiv1);
+    } else {
+        childPlace.appendChild(newComponent);
+    }
+    
     newComponent.appendChild(newNameDiv);
     newNameDiv.appendChild(newNameSpan);
     newComponent.appendChild(newChildComponentPlace);
 
     addDoubleClickEvent(newNameDiv);
+
+    if(parentComponent.className.includes('otherComponent')) {
+
+        convertingToSbS();
+
+    }
 
 }
 
@@ -132,9 +145,21 @@ document.getElementById('deleteButton').addEventListener('click',()=>{
 })
 
 function deleteComponent(itemToDelete) {
+    var parentOfDeletedComponent;
+    if(!(itemToDelete.parentElement.parentElement.className.includes('dif'))){
+        parentOfDeletedComponent = itemToDelete.parentElement.parentElement;
+    }
 
     $(itemToDelete).remove();
-    oldSelectElement = '';
+    oldSelectElement = parentOfDeletedComponent.querySelector('.componentNameDiv');
+    $(oldSelectElement).addClass('selectedComponent')
+    
+    if(oldSelectElement.parentElement.className.includes('otherComponent')) {
+
+        convertingToSbS();
+
+    }
+    
 }
 
 document.getElementById('renameButton').addEventListener('click',()=> {
@@ -167,11 +192,11 @@ function renameComponent(nameDiv) {
             if(e.keyCode==13 && newNameInput.value.trim()) {
                 nameDiv.querySelector('span').innerText = newNameInput.value.trim();
                 nameDiv.querySelector('span').style.display='initial';
-                deleteComponent(newNameInput);
+                $(newNameInput).remove();
                 isAnyInputOpen = false;
             } else if(e.keyCode==27) {
                 document.querySelector('.inputForNewName').parentElement.querySelector('span').style.display='initial';
-                deleteComponent(document.querySelector('.inputForNewName'));
+                $(document.querySelector('.inputForNewName')).remove();
                 isAnyInputOpen = false;
             }
 
@@ -312,14 +337,60 @@ function addDoubleClickEvent(element){
 
 document.getElementById('otherComponentButton').addEventListener('click',()=>{
 
+    convertingToSbS();
+    
+    
+});
+
+function convertingToSbS() {
+
     const toSbS = oldSelectElement.parentElement;
     $(toSbS).addClass('otherComponent');
     $(toSbS.querySelector('.childComponentPlace'))
     .removeClass('normalComponentChildComponentPlace');
     $(toSbS.querySelector('.childComponentPlace'))
     .addClass('otherComponentChildComponentPlace');
+
+    if(!toSbS.querySelector('canvas')) {
+        const childCount = 
+        $($(oldSelectElement.parentElement.querySelector('.childComponentPlace'))[0])[0].childElementCount;
+        if(childCount<2) {
+            return;
+        }
+
+        const otherComponentCanvas = document.createElement('canvas');
+        var count = $(toSbS).length;
+        var canvasWidth = (count*100);
+        canvasWidth += 'px';
+        $(otherComponentCanvas).width(toSbS.offsetWidth-50);
+        $(otherComponentCanvas).height(1);
+        otherComponentCanvas.style.backgroundColor = '#222';
+
+        $(otherComponentCanvas).insertBefore(toSbS.querySelector('.otherComponentChildComponentPlace'));
+
+    } else {
+        $(toSbS.querySelector('canvas')).remove();
+        const childCount = 
+        $($(oldSelectElement.parentElement.querySelector('.childComponentPlace'))[0])[0].childElementCount;
+        if(childCount<2) {
+            return;
+        }
+
+        const otherComponentCanvas = document.createElement('canvas');
+        var count = $(toSbS).length;
+        var canvasWidth = (count*100);
+        canvasWidth += 'px';    console.log(canvasWidth);
+        $(otherComponentCanvas).width(toSbS.offsetWidth-50);
+        $(otherComponentCanvas).height(1);
+        otherComponentCanvas.style.backgroundColor = '#222';
+
+        $(otherComponentCanvas).insertBefore(toSbS.querySelector('.otherComponentChildComponentPlace'));
+
+
+    }
     
-});
+
+}
 
 document.getElementById('normalComponentButton').addEventListener('click',()=>{
 
@@ -328,6 +399,11 @@ document.getElementById('normalComponentButton').addEventListener('click',()=>{
     .removeClass('otherComponentChildComponentPlace');
     $(oldSelectElement.parentElement.querySelector('.childComponentPlace'))
     .addClass('normalComponentChildComponentPlace');
+    if(oldSelectElement.parentElement.querySelector('canvas')) {
+
+        $(oldSelectElement.parentElement.querySelector('canvas')).remove();
+
+    }
 
 });
 

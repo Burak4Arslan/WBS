@@ -14,7 +14,7 @@
 .bottomOfBody {
 
     width: 100%;
-    height: 346px;
+    height: 378px;
     
 
 }
@@ -138,6 +138,7 @@
 .otherComponent {
 
     text-align: center;
+    display: inline-table;
 
 }
 
@@ -207,5 +208,40 @@
 
     display: -webkit-box;
 
+
+}
+
+
+.otherCanvas {
+
+    display: table;
+    /* width: 10px; */
+    height: 10px;
+    background-color: black;
+
+}
+
+
+#rightSideDiv1 {
+
+    width: 200px;
+    height: 300px;
+    /* float: right; */
+
+}
+
+#rightSideDiv2 {
+
+    width: 200px;
+    height: 300px;
+    /* float: right; */
+
+}
+
+#rightSideDiv3 {
+
+    width: 200px;
+    height: 300px;
+    /* float: right; */
 
 }
