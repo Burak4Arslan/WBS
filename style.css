@@ -103,6 +103,12 @@
 
 }
 
+.mabot20 {
+
+    margin-bottom: 20px;
+
+}
+
 .dif {
 
     display: inline-flex;
@@ -243,5 +249,37 @@
     width: 200px;
     height: 300px;
     /* float: right; */
+
+}
+
+.keyShortCuts {
+
+    text-align: -webkit-center;
+    background-color: #CC8;
+    padding: 30px;
+}
+
+.key {
+
+    background-color: #FFA;
+    padding: 20px;
+    border-radius: 30px;
+    display: table;
+    text-align: center;
+
+}
+
+.keysHeading {
+
+    font-size: 27px;
+
+
+}
+
+
+.helpHeading {
+
+    font-size: 50px;
+    text-align: center;
 
 }

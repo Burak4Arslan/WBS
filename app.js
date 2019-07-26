@@ -27,7 +27,7 @@ window.addEventListener('click',(e)=> {
         $(oldSelectElement).removeClass('selectedComponent');
         oldSelectElement='';
         if(document.querySelector('.inputForNewName')) {
-            document.querySelector('.inputForNewName').parentElement.querySelector('span').style.display='initial';
+            document.querySelector('.inputForNewName').parentElement.querySelector('.nameSpan').style.display='initial';
             deleteComponent(document.querySelector('.inputForNewName'));
             isAnyInputOpen = false;
         }
@@ -37,7 +37,7 @@ window.addEventListener('click',(e)=> {
         $(oldSelectElement).removeClass('selectedComponent');
         if(document.querySelector('.inputForNewName') 
         && document.querySelector('.inputForNewName').parentElement!= oldSelectElement) {
-            document.querySelector('.inputForNewName').parentElement.querySelector('span').style.display='initial';
+            document.querySelector('.inputForNewName').parentElement.querySelector('.nameSpan').style.display='initial';
             deleteComponent(document.querySelector('.inputForNewName'));
             isAnyInputOpen = false;
         }
@@ -90,8 +90,9 @@ function addComponent(parentComponent) {
     var childPlace = parentComponent.querySelector('.childComponentPlace');
     
     const newComponent = document.createElement('div');
-    const newNameSpan = document.createElement('span');
     const newNameDiv = document.createElement('div');
+    const newNumberSpan = document.createElement('span');
+    const newNameSpan = document.createElement('span');
     const newChildComponentPlace = document.createElement('div');
 
     newComponent.className = "component";
@@ -102,6 +103,8 @@ function addComponent(parentComponent) {
     newNameDiv.setAttribute('ondrop','drop(event)');
     newNameSpan.className = "componentNameSpan nameSpan";
     newNameSpan.innerText = "New Component";
+    newNumberSpan.className = "numberSpan";
+    newNumberSpan.innerText = "x";
     newChildComponentPlace.className ="childComponentPlace normalComponentChildComponentPlace";
 
     if(childPlace.className.includes('dif')) {
@@ -118,6 +121,7 @@ function addComponent(parentComponent) {
     }
     
     newComponent.appendChild(newNameDiv);
+    newNameDiv.appendChild(newNumberSpan);
     newNameDiv.appendChild(newNameSpan);
     newComponent.appendChild(newChildComponentPlace);
 
@@ -128,6 +132,7 @@ function addComponent(parentComponent) {
         convertingToSbS();
 
     }
+    enumarationComponents();
 
 }
 
@@ -159,7 +164,7 @@ function deleteComponent(itemToDelete) {
         convertingToSbS();
 
     }
-    
+    enumarationComponents()
 }
 
 document.getElementById('renameButton').addEventListener('click',()=> {
@@ -179,7 +184,7 @@ function renameComponent(nameDiv) {
 
     if(!isAnyInputOpen) {
         const newNameInput = document.createElement('input');
-        nameDiv.querySelector('span').style.display='none';
+        nameDiv.querySelector('.nameSpan').style.display='none';
 
         newNameInput.setAttribute('type','text');
         newNameInput.className= 'inputForNewName';
@@ -190,12 +195,12 @@ function renameComponent(nameDiv) {
             oldSelectElement = '';
 
             if(e.keyCode==13 && newNameInput.value.trim()) {
-                nameDiv.querySelector('span').innerText = newNameInput.value.trim();
-                nameDiv.querySelector('span').style.display='initial';
+                nameDiv.querySelector('.nameSpan').innerText = newNameInput.value.trim();
+                nameDiv.querySelector('.nameSpan').style.display='initial';
                 $(newNameInput).remove();
                 isAnyInputOpen = false;
             } else if(e.keyCode==27) {
-                document.querySelector('.inputForNewName').parentElement.querySelector('span').style.display='initial';
+                document.querySelector('.inputForNewName').parentElement.querySelector('.nameSpan').style.display='initial';
                 $(document.querySelector('.inputForNewName')).remove();
                 isAnyInputOpen = false;
             }
@@ -205,12 +210,12 @@ function renameComponent(nameDiv) {
         nameDiv.appendChild(newNameInput);
         newNameInput.focus();
     } else {
-        document.querySelector('.inputForNewName').parentElement.querySelector('span').style.display='initial';
+        document.querySelector('.inputForNewName').parentElement.querySelector('.nameSpan').style.display='initial';
         deleteComponent(document.querySelector('.inputForNewName'));
         isAnyInputOpen = false;
         renameComponent(nameDiv);
     }
-
+    
 }
 
 document.getElementById('cutButton').addEventListener('click',()=> {
@@ -320,7 +325,7 @@ function pasteElement() {
         }
 
     }
-
+    enumarationComponents()
 }
 
 function addDoubleClickEvent(element){
@@ -450,6 +455,7 @@ function drop(ev) {
     // oldSelectElement.querySelector('.componentNameDiv').style.backgroundColor = newParent.style.backgroundColor;
 
     oldSelectElement='';
+    enumarationComponents()
     ev.preventDefault();
 
 }
@@ -494,15 +500,54 @@ function creatingColorSchema() {
 
 document.getElementById('saveButton').addEventListener('click',()=> {
 
+    $(oldSelectElement).removeClass('selectedComponent');
+
     const thePage = document.body.innerHTML;
 
-    localStorage.setItem('key',JSON.stringify(thePage));
+    localStorage.setItem('myPage',JSON.stringify(thePage));
 
 });
 
 document.getElementById('loadButton').addEventListener('click',()=>{
 
-    const thePage = JSON.parse(localStorage.getItem('key'))
+    const thePage = JSON.parse(localStorage.getItem('myPage'))
     document.body.innerHTML = thePage;
 
 })
+
+document.getElementById('newPageButton').addEventListener('click',()=> {
+
+    if (confirm("Are you Sure?")) {
+        window.location.href = 'file:///C:/Users/ww/Desktop/wbs/index.html';
+    } else {
+
+    }
+
+
+})
+
+
+function enumarationComponents(whichComponent, numberOfParent) {
+    let fol = 0;
+    console.log(whichComponent);
+    if(whichComponent == undefined) {
+        var start = document.querySelector('.dif');
+        var firstChildCount = $(start)[0].children.length-3;
+    } else {
+        var start = whichComponent.querySelector('.childComponentPlace');
+        var firstChildCount = $(start)[0].children.length;
+        fol = 1;
+    }
+    const firstChilds = $(start)[0].children;
+    console.log(firstChilds);
+    for(let i=0; i<firstChildCount;i++) {
+
+        if(fol == 1) {
+            firstChilds[i].querySelector('.numberSpan').innerText = numberOfParent + (i+1) + "."; 
+        } else {
+            firstChilds[i].querySelector('.numberSpan').innerText = (i+1) + ".";
+        }
+        enumarationComponents(firstChilds[i],firstChilds[i].querySelector('.numberSpan').innerText);
+    }
+
+}
