@@ -490,3 +490,19 @@ function creatingColorSchema() {
     }
 
 }
+
+
+document.getElementById('saveButton').addEventListener('click',()=> {
+
+    const thePage = document.body.innerHTML;
+
+    localStorage.setItem('key',JSON.stringify(thePage));
+
+});
+
+document.getElementById('loadButton').addEventListener('click',()=>{
+
+    const thePage = JSON.parse(localStorage.getItem('key'))
+    document.body.innerHTML = thePage;
+
+})

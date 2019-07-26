@@ -22,7 +22,7 @@
 .sticky {
     display: inline;
     position: sticky;
-    left: 0;
+    left: 5px;
   }
 
 #projectNameDiv {
