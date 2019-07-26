@@ -4,6 +4,7 @@ var oldSelectElement ='';
 var elementToCut='';
 var elementToCopy='';
 let isAnyInputOpen = false;
+var copiedStyle = '';
 
 const rightSideDiv1 = document.getElementById('rightSideDiv1');
 
@@ -43,10 +44,16 @@ window.addEventListener('click',(e)=> {
         }
             $(selectedElement).addClass('selectedComponent');
             oldSelectElement=selectedElement;
+            if(copiedStyle!='') {
+                oldSelectElement.style.backgroundColor = copiedStyle;
+                
+                copiedStyle = '';
+                document.getElementById('copyStyleButton').innerText = 'Copy Style';
+            }
     }
     
-})
 
+})
 
 document.getElementById('addChildButton').addEventListener('click',()=>{
     
@@ -94,6 +101,7 @@ function addComponent(parentComponent) {
     const newNumberSpan = document.createElement('span');
     const newNameSpan = document.createElement('span');
     const newChildComponentPlace = document.createElement('div');
+    const newOpenAndCloseButton = document.createElement('button');
 
     newComponent.className = "component";
     newComponent.setAttribute('ondragover','allowDrop(event)');
@@ -106,6 +114,8 @@ function addComponent(parentComponent) {
     newNumberSpan.className = "numberSpan";
     newNumberSpan.innerText = "x";
     newChildComponentPlace.className ="childComponentPlace normalComponentChildComponentPlace";
+    newOpenAndCloseButton.className = "openAndCloseButton";
+
 
     if(childPlace.className.includes('dif')) {
         newNameDiv.style.backgroundColor = randomColorFunction();
@@ -123,6 +133,7 @@ function addComponent(parentComponent) {
     newComponent.appendChild(newNameDiv);
     newNameDiv.appendChild(newNumberSpan);
     newNameDiv.appendChild(newNameSpan);
+    newComponent.appendChild(newOpenAndCloseButton);
     newComponent.appendChild(newChildComponentPlace);
 
     addDoubleClickEvent(newNameDiv);
@@ -188,7 +199,7 @@ function renameComponent(nameDiv) {
 
         newNameInput.setAttribute('type','text');
         newNameInput.className= 'inputForNewName';
-        
+        newNameInput.setAttribute('value',nameDiv.querySelector('.nameSpan').innerText);
         newNameInput.addEventListener('keydown',(e)=> {
             
             $(oldSelectElement).removeClass('selectedComponent');
@@ -208,6 +219,7 @@ function renameComponent(nameDiv) {
         })
         isAnyInputOpen = true;
         nameDiv.appendChild(newNameInput);
+        newNameInput.setAttribute('onfocus','this.select()');
         newNameInput.focus();
     } else {
         document.querySelector('.inputForNewName').parentElement.querySelector('.nameSpan').style.display='initial';
@@ -328,6 +340,20 @@ function pasteElement() {
     enumarationComponents()
 }
 
+document.getElementById('copyStyleButton').addEventListener('click',()=>{
+
+    if(oldSelectElement!='') {
+        copiedStyle = oldSelectElement.style.backgroundColor;
+        document.getElementById('copyStyleButton').innerText = 'Copied';
+        document.getElementById('copyStyleButton').style.backgroundColor = copiedStyle;
+        $(oldSelectElement).removeClass('selectedComponent');
+        oldSelectElement = '';
+    }
+    
+
+})
+
+
 function addDoubleClickEvent(element){
 
     
@@ -417,9 +443,21 @@ function randomColorFunction() {
 
     let colorString = '#';
 
-    let redColor = Math.floor((Math.random()*255)).toString(16);
+    let redColor = Math.floor((Math.random()*255));
+    while(redColor<50) {
+        redColor = Math.floor((Math.random()*255))
+    }
+    redColor = redColor.toString(16);
     let greenColor = Math.floor((Math.random()*255)).toString(16);
+    while(greenColor<50) {
+        greenColor = Math.floor((Math.random()*255))
+    }
+    greenColor = greenColor.toString(16);
     let blueColor = Math.floor((Math.random()*255)).toString(16);
+    while(blueColor<50) {
+        blueColor = Math.floor((Math.random()*255))
+    }
+    blueColor = blueColor.toString(16);
     colorString += redColor + greenColor +  blueColor;
     return colorString;
 
@@ -440,7 +478,8 @@ function drop(ev) {
 
     var newParent = ev.target;
     if(newParent.id=='projectDiv' || newParent.id=='projectNameDiv' || newParent.id=='projectNameSpan') {
-        document.querySelector('.dif').appendChild(oldSelectElement);
+        // document.querySelector('.dif').appendChild(oldSelectElement);
+        $(oldSelectElement).insertBefore($('#rightSideDiv1'));
         return;
     }
 
@@ -498,38 +537,38 @@ function creatingColorSchema() {
 }
 
 
-document.getElementById('saveButton').addEventListener('click',()=> {
+// document.getElementById('saveButton').addEventListener('click',()=> {
 
-    $(oldSelectElement).removeClass('selectedComponent');
+//     $(oldSelectElement).removeClass('selectedComponent');
 
-    const thePage = document.body.innerHTML;
+//     const thePage = document.body.innerHTML;
 
-    localStorage.setItem('myPage',JSON.stringify(thePage));
+//     localStorage.setItem('myPage',JSON.stringify(thePage));
 
-});
+// });
 
-document.getElementById('loadButton').addEventListener('click',()=>{
+// document.getElementById('loadButton').addEventListener('click',()=>{
 
-    const thePage = JSON.parse(localStorage.getItem('myPage'))
-    document.body.innerHTML = thePage;
+//     const thePage = JSON.parse(localStorage.getItem('myPage'))
+//     document.body.innerHTML = thePage;
 
-})
+// })
 
-document.getElementById('newPageButton').addEventListener('click',()=> {
+// document.getElementById('newPageButton').addEventListener('click',()=> {
 
-    if (confirm("Are you Sure?")) {
-        window.location.href = 'file:///C:/Users/ww/Desktop/wbs/index.html';
-    } else {
+//     if (confirm("Are you Sure?")) {
+//         window.location.href = 'file:///C:/Users/ww/Desktop/wbs/index.html';
+//     } else {
 
-    }
+//     }
 
 
-})
+// })
 
 
 function enumarationComponents(whichComponent, numberOfParent) {
     let fol = 0;
-    console.log(whichComponent);
+    // console.log(whichComponent);
     if(whichComponent == undefined) {
         var start = document.querySelector('.dif');
         var firstChildCount = $(start)[0].children.length-3;
@@ -539,7 +578,17 @@ function enumarationComponents(whichComponent, numberOfParent) {
         fol = 1;
     }
     const firstChilds = $(start)[0].children;
-    console.log(firstChilds);
+    
+    if(fol==1) {
+
+        if(firstChildCount>0) {
+            start.parentElement.querySelector('.openAndCloseButton').style.display = 'initial';
+        } else {
+            start.parentElement.querySelector('.openAndCloseButton').style.display = 'none';
+        }
+
+    }
+
     for(let i=0; i<firstChildCount;i++) {
 
         if(fol == 1) {
