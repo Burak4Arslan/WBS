@@ -1,0 +1,24 @@
+{
+  "name": "wbs",
+  "version": "1.0.0",
+  "description": "A WBS Tool to Organize Works",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "hbs": "^4.0.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Burak4Arslan/WBS.git"
+  },
+  "author": "Burak Arslan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Burak4Arslan/WBS/issues"
+  },
+  "homepage": "https://github.com/Burak4Arslan/WBS#readme"
+}

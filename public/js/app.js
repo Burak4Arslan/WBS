@@ -5,11 +5,6 @@ var elementToCut='';
 var elementToCopy='';
 let isAnyInputOpen = false;
 var copiedStyle = '';
-var xDropRight = 0;
-var xDropLeft = 0;
-var yDropTop = 0;
-var yDropBottom = 0;
-
 
 const theArrow = document.getElementById('arrow');
 
@@ -202,18 +197,25 @@ document.getElementById('deleteButton').addEventListener('click',()=>{
 })
 
 function deleteComponent(itemToDelete) {
-    var parentOfDeletedComponent;
-    if(!(itemToDelete.parentElement.parentElement.className.includes('dif'))){
-        parentOfDeletedComponent = itemToDelete.parentElement.parentElement;
+    // var parentOfDeletedComponent;
+    try {
+        if(!(itemToDelete.parentElement.parentElement.className.includes('dif'))){
+            parentOfDeletedComponent = itemToDelete.parentElement.parentElement;
+        }
+    } catch {
+
     }
 
     $(itemToDelete).remove();
-    oldSelectElement = parentOfDeletedComponent.querySelector('.componentNameDiv');
-    $(oldSelectElement).addClass('selectedComponent')
-    
-    if(oldSelectElement.parentElement.className.includes('otherComponent')) {
+    // oldSelectElement = parentOfDeletedComponent.querySelector('.componentNameDiv');
+    // $(oldSelectElement).addClass('selectedComponent')
+    try {
+        if(oldSelectElement.parentElement.className.includes('otherComponent')) {
 
-        convertingToSbS();
+            convertingToSbS();
+
+        }
+    } catch {
 
     }
     enumarationComponents()
@@ -263,7 +265,11 @@ function renameComponent(nameDiv) {
         newNameInput.setAttribute('onfocus','this.select()');
         newNameInput.focus();
     } else {
-        document.querySelector('.inputForNewName').parentElement.querySelector('.nameSpan').style.display='initial';
+        try {
+            document.querySelector('.inputForNewName').parentElement.querySelector('.nameSpan').style.display='initial';
+        } catch {
+
+        }
         deleteComponent(document.querySelector('.inputForNewName'));
         isAnyInputOpen = false;
         renameComponent(nameDiv);
@@ -383,7 +389,7 @@ function pasteElement() {
 
 document.getElementById('copyStyleButton').addEventListener('click',()=>{
 
-    if(oldSelectElement!='') {
+    if(oldSelectElement!='' && !(oldSelectElement.className.includes('projectNameDiv'))) {
         copiedStyle = oldSelectElement.style.backgroundColor;
         document.getElementById('copyStyleButton').innerText = 'Copied';
         document.getElementById('copyStyleButton').style.backgroundColor = copiedStyle;
@@ -415,65 +421,71 @@ document.getElementById('otherComponentButton').addEventListener('click',()=>{
 });
 
 function convertingToSbS() {
+    try {
+        const toSbS = oldSelectElement.parentElement;
+        $(toSbS).addClass('otherComponent');
+        $(toSbS.querySelector('.childComponentPlace'))
+        .removeClass('normalComponentChildComponentPlace');
+        $(toSbS.querySelector('.childComponentPlace'))
+        .addClass('otherComponentChildComponentPlace');
 
-    const toSbS = oldSelectElement.parentElement;
-    $(toSbS).addClass('otherComponent');
-    $(toSbS.querySelector('.childComponentPlace'))
-    .removeClass('normalComponentChildComponentPlace');
-    $(toSbS.querySelector('.childComponentPlace'))
-    .addClass('otherComponentChildComponentPlace');
+        // if(!toSbS.querySelector('canvas')) {
+        //     const childCount = 
+        //     $($(oldSelectElement.parentElement.querySelector('.childComponentPlace'))[0])[0].childElementCount;
+        //     if(childCount<2) {
+        //         return;
+        //     }
 
-    // if(!toSbS.querySelector('canvas')) {
-    //     const childCount = 
-    //     $($(oldSelectElement.parentElement.querySelector('.childComponentPlace'))[0])[0].childElementCount;
-    //     if(childCount<2) {
-    //         return;
-    //     }
+        //     const otherComponentCanvas = document.createElement('canvas');
+        //     var count = $(toSbS).length;
+        //     var canvasWidth = (count*100);
+        //     canvasWidth += 'px';
+        //     $(otherComponentCanvas).width(toSbS.offsetWidth-50);
+        //     $(otherComponentCanvas).height(1);
+        //     otherComponentCanvas.style.backgroundColor = '#222';
 
-    //     const otherComponentCanvas = document.createElement('canvas');
-    //     var count = $(toSbS).length;
-    //     var canvasWidth = (count*100);
-    //     canvasWidth += 'px';
-    //     $(otherComponentCanvas).width(toSbS.offsetWidth-50);
-    //     $(otherComponentCanvas).height(1);
-    //     otherComponentCanvas.style.backgroundColor = '#222';
+        //     $(otherComponentCanvas).insertBefore(toSbS.querySelector('.otherComponentChildComponentPlace'));
 
-    //     $(otherComponentCanvas).insertBefore(toSbS.querySelector('.otherComponentChildComponentPlace'));
+        // } else {
+        //     $(toSbS.querySelector('canvas')).remove();
+        //     const childCount = 
+        //     $($(oldSelectElement.parentElement.querySelector('.childComponentPlace'))[0])[0].childElementCount;
+        //     if(childCount<2) {
+        //         return;
+        //     }
 
-    // } else {
-    //     $(toSbS.querySelector('canvas')).remove();
-    //     const childCount = 
-    //     $($(oldSelectElement.parentElement.querySelector('.childComponentPlace'))[0])[0].childElementCount;
-    //     if(childCount<2) {
-    //         return;
-    //     }
+        //     const otherComponentCanvas = document.createElement('canvas');
+        //     var count = $(toSbS).length;
+        //     var canvasWidth = (count*100);
+        //     canvasWidth += 'px';    console.log(canvasWidth);
+        //     $(otherComponentCanvas).width(toSbS.offsetWidth-50);
+        //     $(otherComponentCanvas).height(1);
+        //     otherComponentCanvas.style.backgroundColor = '#222';
 
-    //     const otherComponentCanvas = document.createElement('canvas');
-    //     var count = $(toSbS).length;
-    //     var canvasWidth = (count*100);
-    //     canvasWidth += 'px';    console.log(canvasWidth);
-    //     $(otherComponentCanvas).width(toSbS.offsetWidth-50);
-    //     $(otherComponentCanvas).height(1);
-    //     otherComponentCanvas.style.backgroundColor = '#222';
-
-    //     $(otherComponentCanvas).insertBefore(toSbS.querySelector('.otherComponentChildComponentPlace'));
+        //     $(otherComponentCanvas).insertBefore(toSbS.querySelector('.otherComponentChildComponentPlace'));
 
 
-    // }
-    
+        // }
+    } catch {
+
+
+    }
 
 }
 
 document.getElementById('normalComponentButton').addEventListener('click',()=>{
+    try {
+        $(oldSelectElement.parentElement).removeClass('otherComponent');
+        $(oldSelectElement.parentElement.querySelector('.childComponentPlace'))
+        .removeClass('otherComponentChildComponentPlace');
+        $(oldSelectElement.parentElement.querySelector('.childComponentPlace'))
+        .addClass('normalComponentChildComponentPlace');
+        if(oldSelectElement.parentElement.querySelector('canvas')) {
 
-    $(oldSelectElement.parentElement).removeClass('otherComponent');
-    $(oldSelectElement.parentElement.querySelector('.childComponentPlace'))
-    .removeClass('otherComponentChildComponentPlace');
-    $(oldSelectElement.parentElement.querySelector('.childComponentPlace'))
-    .addClass('normalComponentChildComponentPlace');
-    if(oldSelectElement.parentElement.querySelector('canvas')) {
+            $(oldSelectElement.parentElement.querySelector('canvas')).remove();
 
-        $(oldSelectElement.parentElement.querySelector('canvas')).remove();
+        }
+    } catch {
 
     }
 
@@ -512,13 +524,12 @@ function allowDrop(ev) {
   }
   
 function drag(ev) {
-    
     $(oldSelectElement).removeClass('selectedComponent');
     oldSelectElement = ev.target.parentElement;
-    // arrowCreating();
 }
   
 function drop(ev) {
+    
     theArrow.style.display = 'none';
     var newParent = ev.target;
     if(newParent.id=='projectDiv' || newParent.id=='projectNameDiv' || newParent.id=='projectNameSpan') {
@@ -528,7 +539,7 @@ function drop(ev) {
         return;
     }
 
-    if(newParent.className.includes('componentNameSpan')) {
+    if(newParent.className.includes('Span')) {
         newParent = newParent.parentElement; 
     }
     var elem = $(oldSelectElement).next();
@@ -579,7 +590,6 @@ function drop(ev) {
 
 function arrowCreating(e) {
     var myElement = e.target;
-    
     if(myElement.className.includes('Span')) {
         myElement = myElement.parentElement;
     }
