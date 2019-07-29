@@ -13,7 +13,7 @@ app.use(express.static(fd));
 
 app.get('',(req,res) => {
 
-    res.render('wbs');
+    res.render('index');
 
 })
 

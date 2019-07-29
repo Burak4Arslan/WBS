@@ -312,3 +312,33 @@
     text-align: center;
 
 }
+
+
+
+.indexDiv {
+
+    background-color: #1e90ff;
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.indexa {
+
+    text-decoration: none;
+    font-size: 20px;
+    color : #DDD;
+}
+
+.footerfloat {
+
+    float: right;
+
+}
+
+.indexBody {
+
+    background-color: #CC8;
+
+}

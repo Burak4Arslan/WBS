@@ -741,3 +741,14 @@ function enumarationComponents(whichComponent, numberOfParent) {
     }
 
 }
+
+document.getElementById('newPageButton').addEventListener('click', ()=> {
+
+    var r = confirm("Are You Sure?");
+    if (r == true) {
+        window.location.href = '/wbs';
+    } else {
+    
+    }
+
+})
