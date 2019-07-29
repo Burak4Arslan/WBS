@@ -6,7 +6,7 @@ var elementToCopy='';
 let isAnyInputOpen = false;
 var copiedStyle = '';
 
-const rightSideDiv1 = document.getElementById('rightSideDiv1');
+// const rightSideDiv1 = document.getElementById('rightSideDiv1');
 
 addDoubleClickEvent(document.getElementById('projectNameDiv'));
 // creatingColorSchema();
@@ -484,7 +484,7 @@ function allowDrop(ev) {
     ev.preventDefault();
   }
   
-function drag(ev) { console.log(ev.target.id);
+function drag(ev) {
     $(oldSelectElement).removeClass('selectedComponent');
     oldSelectElement = ev.target.parentElement;
 }
@@ -502,9 +502,41 @@ function drop(ev) {
     if(newParent.className.includes('componentNameSpan')) {
         newParent = newParent.parentElement; 
     }
+    var elem = $(oldSelectElement).next();
     try {
-        newParent.parentElement.querySelector('.childComponentPlace').appendChild(oldSelectElement);
+        var rect = newParent.getBoundingClientRect();
+        // console.log(rect.top, rect.right, rect.bottom, rect.left);
+        var x = event.clientX;
+        var y = event.clientY;
+        console.log('yler' ,y,rect.top)
+        console.log('xler' ,x,rect.right);
+        if(x<rect.right-30 && y<rect.top+32 && x>rect.left+30) {
+            
+            $(oldSelectElement).insertBefore(newParent.parentElement);
+            oldSelectElement.querySelector('.childComponentPlace').appendChild(newParent.parentElement);
+
+        } else if(x>rect.right-30) {
+            
+            $(oldSelectElement).insertAfter(newParent.parentElement);
+            
+        } else if(x<rect.left+30){
+
+            $(oldSelectElement).insertBefore(newParent.parentElement);
+
+        } else {
+            
+            newParent.parentElement.querySelector('.childComponentPlace').appendChild(oldSelectElement);
+        }
+        // newParent.parentElement.querySelector('.childComponentPlace').appendChild(oldSelectElement);
     } catch(e) {
+        // console.log(e.name);
+
+        if(e.name =='HierarchyRequestError') {
+            $(oldSelectElement).insertBefore(elem);
+            // console.log(oldSelectElement,newParent.parentElement);
+            // console.log(e);
+
+        }
 
     }
     // oldSelectElement.querySelector('.componentNameDiv').style.backgroundColor = newParent.style.backgroundColor;
@@ -587,7 +619,7 @@ function enumarationComponents(whichComponent, numberOfParent) {
     // console.log(whichComponent);
     if(whichComponent == undefined) {
         var start = document.querySelector('.dif');
-        var firstChildCount = $(start)[0].children.length-3;
+        var firstChildCount = $(start)[0].children.length-1;
     } else {
         var start = whichComponent.querySelector('.childComponentPlace');
         var firstChildCount = $(start)[0].children.length;
