@@ -115,6 +115,21 @@ function addComponent(parentComponent) {
     newNumberSpan.innerText = "x";
     newChildComponentPlace.className ="childComponentPlace normalComponentChildComponentPlace";
     newOpenAndCloseButton.className = "openAndCloseButton";
+    newOpenAndCloseButton.innerText = '-';
+    let status = 0;
+    newOpenAndCloseButton.addEventListener('click', ()=>{
+
+        $(newChildComponentPlace).slideToggle(500);
+        
+        if(status == 0) {
+            newOpenAndCloseButton.innerText = '+';
+            status = 1;
+        } else {
+            newOpenAndCloseButton.innerText = '-';
+            status = 0;
+        }
+
+    })
 
 
     if(childPlace.className.includes('dif')) {
@@ -382,43 +397,43 @@ function convertingToSbS() {
     $(toSbS.querySelector('.childComponentPlace'))
     .addClass('otherComponentChildComponentPlace');
 
-    if(!toSbS.querySelector('canvas')) {
-        const childCount = 
-        $($(oldSelectElement.parentElement.querySelector('.childComponentPlace'))[0])[0].childElementCount;
-        if(childCount<2) {
-            return;
-        }
+    // if(!toSbS.querySelector('canvas')) {
+    //     const childCount = 
+    //     $($(oldSelectElement.parentElement.querySelector('.childComponentPlace'))[0])[0].childElementCount;
+    //     if(childCount<2) {
+    //         return;
+    //     }
 
-        const otherComponentCanvas = document.createElement('canvas');
-        var count = $(toSbS).length;
-        var canvasWidth = (count*100);
-        canvasWidth += 'px';
-        $(otherComponentCanvas).width(toSbS.offsetWidth-50);
-        $(otherComponentCanvas).height(1);
-        otherComponentCanvas.style.backgroundColor = '#222';
+    //     const otherComponentCanvas = document.createElement('canvas');
+    //     var count = $(toSbS).length;
+    //     var canvasWidth = (count*100);
+    //     canvasWidth += 'px';
+    //     $(otherComponentCanvas).width(toSbS.offsetWidth-50);
+    //     $(otherComponentCanvas).height(1);
+    //     otherComponentCanvas.style.backgroundColor = '#222';
 
-        $(otherComponentCanvas).insertBefore(toSbS.querySelector('.otherComponentChildComponentPlace'));
+    //     $(otherComponentCanvas).insertBefore(toSbS.querySelector('.otherComponentChildComponentPlace'));
 
-    } else {
-        $(toSbS.querySelector('canvas')).remove();
-        const childCount = 
-        $($(oldSelectElement.parentElement.querySelector('.childComponentPlace'))[0])[0].childElementCount;
-        if(childCount<2) {
-            return;
-        }
+    // } else {
+    //     $(toSbS.querySelector('canvas')).remove();
+    //     const childCount = 
+    //     $($(oldSelectElement.parentElement.querySelector('.childComponentPlace'))[0])[0].childElementCount;
+    //     if(childCount<2) {
+    //         return;
+    //     }
 
-        const otherComponentCanvas = document.createElement('canvas');
-        var count = $(toSbS).length;
-        var canvasWidth = (count*100);
-        canvasWidth += 'px';    console.log(canvasWidth);
-        $(otherComponentCanvas).width(toSbS.offsetWidth-50);
-        $(otherComponentCanvas).height(1);
-        otherComponentCanvas.style.backgroundColor = '#222';
+    //     const otherComponentCanvas = document.createElement('canvas');
+    //     var count = $(toSbS).length;
+    //     var canvasWidth = (count*100);
+    //     canvasWidth += 'px';    console.log(canvasWidth);
+    //     $(otherComponentCanvas).width(toSbS.offsetWidth-50);
+    //     $(otherComponentCanvas).height(1);
+    //     otherComponentCanvas.style.backgroundColor = '#222';
 
-        $(otherComponentCanvas).insertBefore(toSbS.querySelector('.otherComponentChildComponentPlace'));
+    //     $(otherComponentCanvas).insertBefore(toSbS.querySelector('.otherComponentChildComponentPlace'));
 
 
-    }
+    // }
     
 
 }
@@ -448,12 +463,12 @@ function randomColorFunction() {
         redColor = Math.floor((Math.random()*255))
     }
     redColor = redColor.toString(16);
-    let greenColor = Math.floor((Math.random()*255)).toString(16);
+    let greenColor = Math.floor((Math.random()*255));
     while(greenColor<50) {
         greenColor = Math.floor((Math.random()*255))
     }
     greenColor = greenColor.toString(16);
-    let blueColor = Math.floor((Math.random()*255)).toString(16);
+    let blueColor = Math.floor((Math.random()*255));
     while(blueColor<50) {
         blueColor = Math.floor((Math.random()*255))
     }
@@ -470,8 +485,8 @@ function allowDrop(ev) {
   }
   
 function drag(ev) { console.log(ev.target.id);
-        $(oldSelectElement).removeClass('selectedComponent');
-        oldSelectElement = ev.target.parentElement;
+    $(oldSelectElement).removeClass('selectedComponent');
+    oldSelectElement = ev.target.parentElement;
 }
   
 function drop(ev) {
@@ -480,6 +495,7 @@ function drop(ev) {
     if(newParent.id=='projectDiv' || newParent.id=='projectNameDiv' || newParent.id=='projectNameSpan') {
         // document.querySelector('.dif').appendChild(oldSelectElement);
         $(oldSelectElement).insertBefore($('#rightSideDiv1'));
+        enumarationComponents()
         return;
     }
 
