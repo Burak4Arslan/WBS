@@ -5,8 +5,15 @@ var elementToCut='';
 var elementToCopy='';
 let isAnyInputOpen = false;
 var copiedStyle = '';
+var xDropRight = 0;
+var xDropLeft = 0;
+var yDropTop = 0;
+var yDropBottom = 0;
 
-// const rightSideDiv1 = document.getElementById('rightSideDiv1');
+
+const theArrow = document.getElementById('arrow');
+
+const rightSideDiv1 = document.getElementById('rightSideDiv1');
 
 addDoubleClickEvent(document.getElementById('projectNameDiv'));
 // creatingColorSchema();
@@ -109,6 +116,25 @@ function addComponent(parentComponent) {
     newNameDiv.setAttribute('draggable','true');
     newNameDiv.setAttribute('ondragstart','drag(event)');
     newNameDiv.setAttribute('ondrop','drop(event)');
+    var rect = newNameDiv.getBoundingClientRect();
+    newNameDiv.addEventListener('mousemove',()=>{
+
+        xDropRight = rect.right;
+        xDropLeft = rect.left;
+        yDropTop = rect.top;
+        yDropBottom = rect.bottom;
+
+    })
+
+    newNameDiv.addEventListener('mouseleave',()=>{
+
+        xDropRight = 0;
+        xDropLeft = 0;
+        yDropTop = 0;
+        yDropBottom = 0;
+
+    })
+
     newNameSpan.className = "componentNameSpan nameSpan";
     newNameSpan.innerText = "New Component";
     newNumberSpan.className = "numberSpan";
@@ -482,15 +508,18 @@ function randomColorFunction() {
 function allowDrop(ev) {
     // console.log(ev.target);
     ev.preventDefault();
+    arrowCreating(ev);
   }
   
 function drag(ev) {
+    
     $(oldSelectElement).removeClass('selectedComponent');
     oldSelectElement = ev.target.parentElement;
+    // arrowCreating();
 }
   
 function drop(ev) {
-
+    theArrow.style.display = 'none';
     var newParent = ev.target;
     if(newParent.id=='projectDiv' || newParent.id=='projectNameDiv' || newParent.id=='projectNameSpan') {
         // document.querySelector('.dif').appendChild(oldSelectElement);
@@ -506,10 +535,10 @@ function drop(ev) {
     try {
         var rect = newParent.getBoundingClientRect();
         // console.log(rect.top, rect.right, rect.bottom, rect.left);
+        // console.log('yler' ,y,rect.top)
+        // console.log('xler' ,x,rect.right);
         var x = event.clientX;
         var y = event.clientY;
-        console.log('yler' ,y,rect.top)
-        console.log('xler' ,x,rect.right);
         if(x<rect.right-30 && y<rect.top+32 && x>rect.left+30) {
             
             $(oldSelectElement).insertBefore(newParent.parentElement);
@@ -546,6 +575,60 @@ function drop(ev) {
     ev.preventDefault();
 
 }
+
+
+function arrowCreating(e) {
+    var myElement = e.target;
+    
+    if(myElement.className.includes('Span')) {
+        myElement = myElement.parentElement;
+    }
+    if(oldSelectElement == myElement.parentElement) {
+        theArrow.style.display = 'none';
+        return;
+    }
+
+    if(myElement.className.includes('componentNameDiv')) {
+        var rect = myElement.getBoundingClientRect();
+        
+        var x = event.clientX;
+        var y = event.clientY;
+        // console.log('yeler' , y, rect.top )
+        // console.log('xler' , x, rect.right )
+        if(x<rect.right-30 && y<rect.top+32 && x>rect.left+30) { //top
+            theArrow.innerText = '↑';
+            theArrow.style.top = (rect.top-70) +'px';
+            theArrow.style.left = (rect.right+rect.left)/2 -20  +'px';
+            theArrow.style.display = 'initial';
+
+        } else if(x>rect.right-30) { // right
+            theArrow.innerText = '→';
+            theArrow.style.top = (rect.top+rect.bottom)/2-35 +'px';
+            theArrow.style.left = (rect.right) +'px';
+            theArrow.style.display = 'initial';
+
+        } else if(x<rect.left+30){ //left
+            theArrow.innerText = '←';
+            theArrow.style.top = (rect.top+rect.bottom)/2-35 +'px';
+            theArrow.style.left = (rect.left-40) +'px';
+            theArrow.style.display = 'initial';
+
+        } else { // bottom
+            theArrow.innerText = '↓';   
+            theArrow.style.top = (rect.top+70) +'px';
+            theArrow.style.left = (rect.right+rect.left)/2 -20 +'px';
+            theArrow.style.display = 'initial';
+                
+        }
+
+    } else {
+
+        theArrow.style.display = 'none';
+
+    }
+
+}
+
 
 
 function creatingColorSchema() {

@@ -295,3 +295,13 @@
     background-color: #CC8;
 
 }
+
+
+.arrow {
+
+    z-index: 1;
+    font-size: 50px;
+    position: absolute;
+    display: none;
+
+}
