@@ -111,25 +111,6 @@ function addComponent(parentComponent) {
     newNameDiv.setAttribute('draggable','true');
     newNameDiv.setAttribute('ondragstart','drag(event)');
     newNameDiv.setAttribute('ondrop','drop(event)');
-    var rect = newNameDiv.getBoundingClientRect();
-    newNameDiv.addEventListener('mousemove',()=>{
-
-        xDropRight = rect.right;
-        xDropLeft = rect.left;
-        yDropTop = rect.top;
-        yDropBottom = rect.bottom;
-
-    })
-
-    newNameDiv.addEventListener('mouseleave',()=>{
-
-        xDropRight = 0;
-        xDropLeft = 0;
-        yDropTop = 0;
-        yDropBottom = 0;
-
-    })
-
     newNameSpan.className = "componentNameSpan nameSpan";
     newNameSpan.innerText = "New Component";
     newNumberSpan.className = "numberSpan";
@@ -355,7 +336,7 @@ function pasteElement() {
         if(oldSelectElement!='' && elementToCut != oldSelectElement) {
             
             if(oldSelectElement.id == 'projectNameDiv') {
-                document.querySelector('.dif').appendChild(elementToCut);
+                $(elementToCut).insertBefore(rightSideDiv1);
             }else {
                 try {
                     oldSelectElement.parentElement.querySelector('.childComponentPlace').appendChild(elementToCut);
@@ -374,7 +355,7 @@ function pasteElement() {
             var clonedElement = elementToCopy.cloneNode(true);
             
             if(oldSelectElement.id == 'projectNameDiv') {
-                document.querySelector('.dif').appendChild(clonedElement);
+                $(clonedElement).insertBefore(rightSideDiv1);
             }else {
                 oldSelectElement.parentElement.querySelector('.childComponentPlace').appendChild(clonedElement);
             }
