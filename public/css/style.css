@@ -313,6 +313,21 @@
 
 }
 
+#helpPageButton {
+
+    text-decoration: none;
+
+}
+
+.aHelp {
+
+    text-decoration: none;
+    font-size: 20px;
+    margin-left: 30px;
+    padding: 20px;
+    background-color: #FBA;
+    border-radius: 20px;
+}
 
 
 .indexDiv {
