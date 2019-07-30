@@ -44,21 +44,19 @@ window.addEventListener('click',(e)=> {
             deleteComponent(document.querySelector('.inputForNewName'));
             isAnyInputOpen = false;
         }
-            $(selectedElement).addClass('selectedComponent');
-            oldSelectElement=selectedElement;
-            if(copiedStyle!='') {
-                oldSelectElement.style.backgroundColor = copiedStyle;
-                
-                copiedStyle = '';
-                document.getElementById('copyStyleButton').innerText = 'Copy Style';
-            }
+        $(selectedElement).addClass('selectedComponent');
+        oldSelectElement=selectedElement;
+        if(copiedStyle!='') {
+            oldSelectElement.style.backgroundColor = copiedStyle;    
+            copiedStyle = '';
+            document.getElementById('copyStyleButton').innerText = 'Copy Style';
+        }
     }
     
 
 })
 
 document.getElementById('addChildButton').addEventListener('click',()=>{
-    
     if(oldSelectElement.id == "projectNameDiv") {
         addComponent(document.getElementById('mainComponentPlace'))
     }else if(oldSelectElement!='') {
@@ -90,6 +88,9 @@ window.addEventListener('keydown',(e)=> {
     } else if (e.keyCode==27 && elementToCut != '') {
         $(elementToCut).removeClass('cuttedComponent');
         elementToCut = '';
+    } else if (e.keyCode==27 && elementToCopy != '') {
+        $(elementToCopy).removeClass('copiedComponent');
+        elementToCopy = '';
     }
 
 })
@@ -114,7 +115,6 @@ function addComponent(parentComponent) {
     newNameSpan.className = "componentNameSpan nameSpan";
     newNameSpan.innerText = "New Component";
     newNumberSpan.className = "numberSpan";
-    newNumberSpan.innerText = "x";
     newChildComponentPlace.className ="childComponentPlace normalComponentChildComponentPlace";
     newOpenAndCloseButton.className = "openAndCloseButton";
     newOpenAndCloseButton.innerText = '-';
@@ -622,41 +622,41 @@ function arrowCreating(e) {
 
 
 
-function creatingColorSchema() {
+// function creatingColorSchema() {
 
-    const colorS1 = document.getElementById('colorS1');
-    const colorS2 = document.getElementById('colorS2');
-    const colorS3 = document.getElementById('colorS3');
-    let a = 30;
-    while(a>20) {
+//     const colorS1 = document.getElementById('colorS1');
+//     const colorS2 = document.getElementById('colorS2');
+//     const colorS3 = document.getElementById('colorS3');
+//     let a = 30;
+//     while(a>20) {
 
-        const newColorDiv = document.createElement('div');
-        $(newColorDiv).addClass('colors');
-        newColorDiv.style.backgroundColor = randomColorFunction();
-        colorS1.appendChild(newColorDiv);
-        a--;
-        console.log('a');
-    }
-    while(a>10) {
+//         const newColorDiv = document.createElement('div');
+//         $(newColorDiv).addClass('colors');
+//         newColorDiv.style.backgroundColor = randomColorFunction();
+//         colorS1.appendChild(newColorDiv);
+//         a--;
+//         console.log('a');
+//     }
+//     while(a>10) {
 
-        const newColorDiv = document.createElement('div');
-        $(newColorDiv).addClass('colors');
-        newColorDiv.style.backgroundColor = randomColorFunction();
-        colorS2.appendChild(newColorDiv);
-        a--;
-        console.log('a');
-    }
-    while(a>0) {
+//         const newColorDiv = document.createElement('div');
+//         $(newColorDiv).addClass('colors');
+//         newColorDiv.style.backgroundColor = randomColorFunction();
+//         colorS2.appendChild(newColorDiv);
+//         a--;
+//         console.log('a');
+//     }
+//     while(a>0) {
 
-        const newColorDiv = document.createElement('div');
-        $(newColorDiv).addClass('colors');
-        newColorDiv.style.backgroundColor = randomColorFunction();
-        colorS3.appendChild(newColorDiv);
-        a--;
-        console.log('a');
-    }
+//         const newColorDiv = document.createElement('div');
+//         $(newColorDiv).addClass('colors');
+//         newColorDiv.style.backgroundColor = randomColorFunction();
+//         colorS3.appendChild(newColorDiv);
+//         a--;
+//         console.log('a');
+//     }
 
-}
+// }
 
 
 // document.getElementById('saveButton').addEventListener('click',()=> {

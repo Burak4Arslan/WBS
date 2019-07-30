@@ -16,6 +16,11 @@ app.get('',(req,res) => {
     res.render('index');
 
 })
+app.get('/home',(req,res) => {
+
+    res.render('index');
+
+})
 
 
 app.get('/wbs',(req,res)=>{
