@@ -22,6 +22,8 @@ window.addEventListener('click',(e)=> {
             break;
         }else if(selectedElement.className.includes('selections')){
             break;
+        } else if(selectedElement.className.includes('copyColour')) {
+            break;
         } else {
             selectedElement = selectedElement.parentElement;
         }
@@ -36,6 +38,8 @@ window.addEventListener('click',(e)=> {
         }
     }else if(selectedElement.className.includes('selections')){
         
+    } else if(selectedElement.className.includes('copyColour')) {
+        copyStyle(1);
     } else {
         $(oldSelectElement).removeClass('selectedComponent');
         if(document.querySelector('.inputForNewName') 
@@ -91,6 +95,21 @@ window.addEventListener('keydown',(e)=> {
     } else if (e.keyCode==27 && elementToCopy != '') {
         $(elementToCopy).removeClass('copiedComponent');
         elementToCopy = '';
+    } else if (e.keyCode==107) {
+        if(oldSelectElement.id == "projectNameDiv") {
+            addComponent(document.getElementById('mainComponentPlace'))
+        }else if(oldSelectElement!='') {
+            addComponent(oldSelectElement.parentElement);
+        }else {
+            addComponent(document.getElementById('mainComponentPlace'))
+        }
+    } else if (e.keyCode==9) {
+        if(oldSelectElement.parentElement.className.includes('other')) {
+            convertingToTaB();
+        } else {
+            convertingToSbS();
+        }
+        e.preventDefault();
     }
 
 })
@@ -370,16 +389,28 @@ function pasteElement() {
 
 document.getElementById('copyStyleButton').addEventListener('click',()=>{
 
-    if(oldSelectElement!='' && !(oldSelectElement.className.includes('projectNameDiv'))) {
-        copiedStyle = oldSelectElement.style.backgroundColor;
+    copyStyle();
+
+})
+
+function copyStyle(a) {
+
+    if(a==undefined) {
+        if(oldSelectElement!='' && !(oldSelectElement.className.includes('projectNameDiv'))) {
+            copiedStyle = oldSelectElement.style.backgroundColor;
+            document.getElementById('copyStyleButton').innerText = 'Copied';
+            document.getElementById('copyStyleButton').style.backgroundColor = copiedStyle;
+            $(oldSelectElement).removeClass('selectedComponent');
+            oldSelectElement = '';
+        }
+    } else {
+        copiedStyle = document.querySelector('.copyColourComponent').style.backgroundColor;
         document.getElementById('copyStyleButton').innerText = 'Copied';
         document.getElementById('copyStyleButton').style.backgroundColor = copiedStyle;
-        $(oldSelectElement).removeClass('selectedComponent');
-        oldSelectElement = '';
     }
     
 
-})
+}
 
 
 function addDoubleClickEvent(element){
@@ -455,6 +486,13 @@ function convertingToSbS() {
 }
 
 document.getElementById('normalComponentButton').addEventListener('click',()=>{
+    
+    convertingToTaB();
+
+});
+
+function convertingToTaB() {
+
     try {
         $(oldSelectElement.parentElement).removeClass('otherComponent');
         $(oldSelectElement.parentElement.querySelector('.childComponentPlace'))
@@ -470,7 +508,7 @@ document.getElementById('normalComponentButton').addEventListener('click',()=>{
 
     }
 
-});
+}
 
 
 function randomColorFunction() {
@@ -619,6 +657,18 @@ function arrowCreating(e) {
     }
 
 }
+
+document.querySelector('.colorPickerInput').addEventListener('keyup',()=>{
+    
+    if(document.querySelector('.colorPickerInput').value.toString().length==3 
+    || document.querySelector('.colorPickerInput').value.toString().length==6) {
+
+        document.querySelector('.copyColourComponent').style.backgroundColor = '#' + 
+        document.querySelector('.colorPickerInput').value.toString();
+
+    }
+
+})
 
 
 

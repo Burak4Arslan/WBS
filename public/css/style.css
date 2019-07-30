@@ -279,6 +279,39 @@
 
 }
 
+.colorPicker {
+
+    text-align: center;
+
+}
+
+.colorPickerSharp {
+
+    width: 15px;
+
+}
+
+.colorPickerInput {
+
+
+}
+
+.copyColourComponent {
+    
+    border-radius: 30px;
+    padding: 30px;
+    background-color: red;
+    display: inline-block;
+    margin-top : 0px;
+
+}
+
+/* .ccc {
+
+    width: 50px;
+    height: 50px;
+
+} */
 
 /* For Help Page */
 .keyShortCuts {
