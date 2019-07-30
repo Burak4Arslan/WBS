@@ -5,6 +5,9 @@ var elementToCut='';
 var elementToCopy='';
 let isAnyInputOpen = false;
 var copiedStyle = '';
+let colorPickerOpen = false;
+
+$($('#colorPickerID')[0]).hide();
 
 const theArrow = document.getElementById('arrow');
 
@@ -670,44 +673,20 @@ document.querySelector('.colorPickerInput').addEventListener('keyup',()=>{
 
 })
 
+document.getElementById('colorPickerButton').addEventListener('click',()=> {
+    const myElem = $('#colorPickerID')[0];
+    console.log(myElem);
+    if(colorPickerOpen) {
+        $(myElem).hide(500);
+        document.getElementById('colorPickerButton').innerText = 'Open Color Picker';
+        colorPickerOpen = false;
+    } else {
+        $(myElem).show(500);
+        document.getElementById('colorPickerButton').innerText = 'Close Color Picker';
+        colorPickerOpen = true;
+    }
 
-
-// function creatingColorSchema() {
-
-//     const colorS1 = document.getElementById('colorS1');
-//     const colorS2 = document.getElementById('colorS2');
-//     const colorS3 = document.getElementById('colorS3');
-//     let a = 30;
-//     while(a>20) {
-
-//         const newColorDiv = document.createElement('div');
-//         $(newColorDiv).addClass('colors');
-//         newColorDiv.style.backgroundColor = randomColorFunction();
-//         colorS1.appendChild(newColorDiv);
-//         a--;
-//         console.log('a');
-//     }
-//     while(a>10) {
-
-//         const newColorDiv = document.createElement('div');
-//         $(newColorDiv).addClass('colors');
-//         newColorDiv.style.backgroundColor = randomColorFunction();
-//         colorS2.appendChild(newColorDiv);
-//         a--;
-//         console.log('a');
-//     }
-//     while(a>0) {
-
-//         const newColorDiv = document.createElement('div');
-//         $(newColorDiv).addClass('colors');
-//         newColorDiv.style.backgroundColor = randomColorFunction();
-//         colorS3.appendChild(newColorDiv);
-//         a--;
-//         console.log('a');
-//     }
-
-// }
-
+})
 
 // document.getElementById('saveButton').addEventListener('click',()=> {
 

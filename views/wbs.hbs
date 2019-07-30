@@ -35,23 +35,36 @@
             <button class="btn btn-warning" id="otherComponentButton" 
             title="Align Child Components Side by Side">SbS</button>
         </div>
-        <!-- <div id="colorSchema">
-            <div id="colorS1" class="cS"></div>
-            <div id="colorS2" class="cS"></div>
-            <div id="colorS3" class="cS"></div>
-        </div> -->
+        <div class="divStatus">
+            <button class="btn btn-secondary" id="colorPickerButton">Open Color Picker</button>
+        </div>
+    </div>
+    <div class="wrapperColorPicker">
+        <div id="colorPickerID">
+            <div class="colorPicker">
+                <label for="">Custom Color :</label>
+                <input type="text" class="colorPickerSharp" value="#" disabled>
+                <input type="text" class="colorPickerInput">
+            </div>
+            <div class="colorPicker">
+                <div class="copyColourComponent">Copy Me</div>
+            </div>
+            <div class="colorPicker">
+                <span>Select the Component Above to Copy it's Style</span>
+            </div>
+        </div>
     </div>
     <div>
         <div class="container">
-        <div class="row matop100">
-            <div class="col">
-                <div id="projectDiv" draggable="true" ondragstart=""  ondrop="drop(event)" ondragover="allowDrop(event)">
-                    <div id="projectNameDiv" class="projectNameDiv">
-                        <span id="projectNameSpan" class="nameSpan">Project Name</span>
+            <div class="row matop100">
+                <div class="col">
+                    <div id="projectDiv" draggable="true" ondragstart=""  ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div id="projectNameDiv" class="projectNameDiv">
+                            <span id="projectNameSpan" class="nameSpan">Project Name</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
         <div class="container-fluid">
             <div class="row matop10"  id="mainComponentPlace">
@@ -65,17 +78,6 @@
             </div>
         </div>
         <div class="bottomOfBody">
-            <div class="colorPicker">
-                <label for="">Custom Color :</label>
-                <input type="text" class="colorPickerSharp" value="#" disabled>
-                <input type="text" class="colorPickerInput">
-            </div>
-            <div class="colorPicker">
-                <div class="copyColourComponent">Copy Me</div>
-            </div>
-            <div class="colorPicker">
-                <span>Select the Component Above to Copy it's Style</span>
-            </div>
             
         </div>
     </div>
