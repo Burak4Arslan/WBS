@@ -389,3 +389,41 @@
     background-color: #CC8;
 
 }
+
+#randomTipDivFixer {
+
+    margin-top: 30px;
+    text-align: center;
+
+}
+
+#randomTipDiv {
+
+    padding: 50px;
+    background-color: #968;
+    display: inline-block;
+    border-radius: 30px;
+    text-align: center;
+    width: 500px;
+    height: 30px;
+
+}
+#randomTipSpan {
+
+    color: #EEE
+
+    
+}
+#randomTipButton {
+
+    position: absolute;
+    top: 270px;
+    left:900px;
+    
+}
+
+#tipTip {
+
+    color: #cccccc;
+
+}
