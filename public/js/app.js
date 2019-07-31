@@ -186,7 +186,6 @@ function addComponent(parentComponent) {
 
 }
 
-
 document.getElementById('deleteButton').addEventListener('click',()=>{
 
     if(oldSelectElement.id == "projectNameDiv") {
@@ -415,7 +414,6 @@ function copyStyle(a) {
 
 }
 
-
 function addDoubleClickEvent(element){
 
     
@@ -426,7 +424,6 @@ function addDoubleClickEvent(element){
     });
 
 }
-
 
 document.getElementById('otherComponentButton').addEventListener('click',()=>{
 
@@ -513,7 +510,6 @@ function convertingToTaB() {
 
 }
 
-
 function randomColorFunction() {
 
     let colorString = '#';
@@ -537,7 +533,6 @@ function randomColorFunction() {
     return colorString;
 
 }
-
 
 function allowDrop(ev) {
     // console.log(ev.target);
@@ -579,8 +574,11 @@ function drop(ev) {
         } else if(x>rect.right-30) {
             $(oldSelectElement).insertAfter(newParent.parentElement);
         } else if(x<rect.left+30){
-            $(newParent.parentElement).insertBefore(oldSelectElement);
-            $(oldSelectElement).insertBefore(newParent.parentElement);
+            if(newParent.parentElement.parentElement.parentElement == oldSelectElement) {
+
+            } else {
+                $(oldSelectElement).insertBefore(newParent.parentElement);
+            }
         } else {
             
             newParent.parentElement.querySelector('.childComponentPlace').appendChild(oldSelectElement);
@@ -604,7 +602,6 @@ function drop(ev) {
     ev.preventDefault();
 
 }
-
 
 function arrowCreating(e) {
     var myElement = e.target;
@@ -710,7 +707,6 @@ document.getElementById('colorPickerButton').addEventListener('click',()=> {
 
 
 // })
-
 
 function enumarationComponents(whichComponent, numberOfParent) {
     let fol = 0;
