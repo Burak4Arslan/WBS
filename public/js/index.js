@@ -46,7 +46,9 @@ function randomTip() {
         mySpan.innerText = 'Use New Page Button to clear screen and begin a new WBS';
         break;
         case 8: 
-        mySpan.innerText = 'Use TaB and SbS buttons to change a Component\'s children\'s sequence';
+        mySpan.innerHTML = 'Use <img class="imgP" src="/pictures/TaB.png" alt="TaB"></img>' +
+        ' and '+ '<img class="imgP" src="/pictures/SbS.png" alt="TaB">' +
+        ' buttons to change a Component\'s children\'s sequence';
         break;
         case 9: 
         mySpan.innerText = 'Use Open Color Picker Button to open Color Picker where you can insert color number'+

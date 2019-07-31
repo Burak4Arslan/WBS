@@ -81,13 +81,13 @@
 
 #addChildButton {
 
-    color: red;
+    color: black;
 
 }
 
 #deleteButton {
 
-    color: greenyellow;
+    color: white;
 
 }
 
@@ -131,6 +131,12 @@
 
 }
 
+.imgP {
+
+    width: 20px;
+    height: 20px;
+
+}
 
 .component {
 
