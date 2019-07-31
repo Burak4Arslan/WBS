@@ -284,6 +284,22 @@
     display: none;
 
 }
+
+#colorPickerID {
+
+    display: none;
+
+}
+
+.colorPickerButtonDiv {
+
+    border: #EEE solid 2px;
+    border-radius: 30px;
+    display: inline-block;
+    padding: 10px;
+
+}
+
 .colorPicker {
 
     text-align: center;

@@ -576,22 +576,18 @@ function drop(ev) {
             
             $(oldSelectElement).insertBefore(newParent.parentElement);
             oldSelectElement.querySelector('.childComponentPlace').appendChild(newParent.parentElement);
-
         } else if(x>rect.right-30) {
-            
             $(oldSelectElement).insertAfter(newParent.parentElement);
-            
         } else if(x<rect.left+30){
-
+            $(newParent.parentElement).insertBefore(oldSelectElement);
             $(oldSelectElement).insertBefore(newParent.parentElement);
-
         } else {
             
             newParent.parentElement.querySelector('.childComponentPlace').appendChild(oldSelectElement);
         }
         // newParent.parentElement.querySelector('.childComponentPlace').appendChild(oldSelectElement);
     } catch(e) {
-        // console.log(e.name);
+        // console.log('nanii', test);
 
         if(e.name =='HierarchyRequestError') {
             $(oldSelectElement).insertBefore(elem);
@@ -675,7 +671,6 @@ document.querySelector('.colorPickerInput').addEventListener('keyup',()=>{
 
 document.getElementById('colorPickerButton').addEventListener('click',()=> {
     const myElem = $('#colorPickerID')[0];
-    console.log(myElem);
     if(colorPickerOpen) {
         $(myElem).hide(500);
         document.getElementById('colorPickerButton').innerText = 'Open Color Picker';
