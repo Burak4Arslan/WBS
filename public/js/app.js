@@ -6,6 +6,8 @@ var elementToCopy='';
 let isAnyInputOpen = false;
 var copiedStyle = '';
 let colorPickerOpen = false;
+var xml = '';
+var UID = 0;
 
 $($('#colorPickerID')[0]).hide();
 
@@ -107,10 +109,14 @@ window.addEventListener('keydown',(e)=> {
             addComponent(document.getElementById('mainComponentPlace'))
         }
     } else if (e.keyCode==9) {
-        if(oldSelectElement.parentElement.className.includes('other')) {
-            convertingToTaB();
-        } else {
-            convertingToSbS();
+        try {
+            if(oldSelectElement.parentElement.className.includes('other')) {
+                convertingToTaB();
+            } else {
+                convertingToSbS();
+            }
+        } catch {
+
         }
         e.preventDefault();
     }
@@ -764,7 +770,11 @@ document.getElementById('colorPickerButton').addEventListener('click',()=> {
 
 // })
 
-function enumarationComponents(whichComponent, numberOfParent) {
+function enumarationComponents(whichComponent, numberOfParent,sira) {
+    
+    if(sira == undefined) {
+        sira = 1;
+    }
     let fol = 0;
     // console.log(whichComponent);
     if(whichComponent == undefined) {
@@ -794,9 +804,178 @@ function enumarationComponents(whichComponent, numberOfParent) {
         } else {
             firstChilds[i].querySelector('.numberSpan').innerText = (i+1) + ".";
         }
-        enumarationComponents(firstChilds[i],firstChilds[i].querySelector('.numberSpan').innerText);
+
+        xml += `
+        <Task>
+
+        <UID>${UID}</UID>
+
+        <ID>${UID}</ID>
+        
+        <Name>${firstChilds[i].querySelector('.nameSpan').innerText}</Name>
+        
+        <Type>0</Type>
+        
+        <IsNull>0</IsNull>
+        
+        <CreateDate>2019-08-01T09:11:08</CreateDate>
+        
+        <WBS>${'1.' + firstChilds[i].querySelector('.numberSpan').innerText}</WBS>
+        
+        <OutlineNumber>0</OutlineNumber>
+        
+        <OutlineLevel>0</OutlineLevel>
+        
+        <Priority>500</Priority>
+        
+        <Start>2019-08-01T08:00:00</Start>
+        
+        <Finish>2019-08-01T17:00:00</Finish>
+        
+        <Duration>PT8H0M0S</Duration>
+        
+        <DurationFormat>39</DurationFormat>
+        
+        <Work>PT0H0M0S</Work>
+        
+        <ResumeValid>0</ResumeValid>
+        
+        <EffortDriven>1</EffortDriven>
+        
+        <Recurring>0</Recurring>
+        
+        <OverAllocated>0</OverAllocated>
+        
+        <Estimated>1</Estimated>
+        
+        <Milestone>0</Milestone>
+        
+        <Summary>1</Summary>
+        
+        <Critical>0</Critical>
+        
+        <IsSubproject>0</IsSubproject>
+        
+        <IsSubprojectReadOnly>0</IsSubprojectReadOnly>
+        
+        <ExternalTask>0</ExternalTask>
+        
+        <EarlyStart>2019-08-01T08:00:00</EarlyStart>
+        
+        <EarlyFinish>2019-08-01T17:00:00</EarlyFinish>
+        
+        <LateStart>2019-08-01T08:00:00</LateStart>
+        
+        <LateFinish>2019-08-01T17:00:00</LateFinish>
+        
+        <StartVariance>0</StartVariance>
+        
+        <FinishVariance>0</FinishVariance>
+        
+        <WorkVariance>0</WorkVariance>
+        
+        <FreeSlack>0</FreeSlack>
+        
+        <TotalSlack>0</TotalSlack>
+        
+        <FixedCost>0</FixedCost>
+        
+        <FixedCostAccrual>3</FixedCostAccrual>
+        
+        <PercentComplete>0</PercentComplete>
+        
+        <PercentWorkComplete>0</PercentWorkComplete>
+        
+        <Cost>0</Cost>
+        
+        <OvertimeCost>0</OvertimeCost>
+        
+        <OvertimeWork>PT0H0M0S</OvertimeWork>
+        
+        <ActualDuration>PT0H0M0S</ActualDuration>
+        
+        <ActualCost>0</ActualCost>
+        
+        <ActualOvertimeCost>0</ActualOvertimeCost>
+        
+        <ActualWork>PT0H0M0S</ActualWork>
+        
+        <ActualOvertimeWork>PT0H0M0S</ActualOvertimeWork>
+        
+        <RegularWork>PT0H0M0S</RegularWork>
+        
+        <RemainingDuration>PT8H0M0S</RemainingDuration>
+        
+        <RemainingCost>0</RemainingCost>
+        
+        <RemainingWork>PT0H0M0S</RemainingWork>
+        
+        <RemainingOvertimeCost>0</RemainingOvertimeCost>
+        
+        <RemainingOvertimeWork>PT0H0M0S</RemainingOvertimeWork>
+        
+        <ACWP>0</ACWP>
+        
+        <CV>0</CV>
+        
+        <ConstraintType>0</ConstraintType>
+        
+        <CalendarUID>-1</CalendarUID>
+        
+        <LevelAssignments>1</LevelAssignments>
+        
+        <LevelingCanSplit>1</LevelingCanSplit>
+        
+        <LevelingDelay>0</LevelingDelay>
+        
+        <LevelingDelayFormat>8</LevelingDelayFormat>
+        
+        <IgnoreResourceCalendar>0</IgnoreResourceCalendar>
+        
+        <HideBar>0</HideBar>
+        
+        <Rollup>0</Rollup>
+        
+        <BCWS>0</BCWS>
+        
+        <BCWP>0</BCWP>
+        
+        <PhysicalPercentComplete>0</PhysicalPercentComplete>
+        
+        <EarnedValueMethod>0</EarnedValueMethod>
+        
+        <IsPublished>1</IsPublished>
+        
+        <CommitmentType>0</CommitmentType>
+        
+        </Task>`;
+
+        UID++;
+
+
+
+
+        
+        // let k=0;
+        // for(k=0;k<sira;k++) {
+        //     xml += ' ';
+        // }
+        // xml += '<task>\n';
+        // for(k=0;k<sira+1;k++) {
+        //     xml += ' ';
+        // }
+        // xml += '<name>'+firstChilds[i].querySelector('.nameSpan').innerText+'</name>\n';
+        // for(k=0;k<sira-1;k++) {
+        //     xml += ' ';
+        // }
+        // xml += '</task>\n';
+        // sira++;
+        enumarationComponents(firstChilds[i],firstChilds[i].querySelector('.numberSpan').innerText,sira);
+        
+        // sira--;
     }
 
+    
 }
 
 document.getElementById('newPageButton').addEventListener('click', ()=> {
@@ -809,3 +988,649 @@ document.getElementById('newPageButton').addEventListener('click', ()=> {
     }
 
 })
+
+document.getElementById('toXMLButton').addEventListener('click',()=> {
+
+    UID = 1;
+    let pN = document.getElementById('projectNameSpan').innerText;
+    xml= '';
+
+    xml += `
+    <Project xmlns="http://schemas.microsoft.com/project">
+
+    <Name>WBSTool Project</Name>
+    
+    <Company/>
+    
+    <Author/>
+    
+    <CreationDate>2019-08-01T09:11:08</CreationDate>
+    
+    <LastSaved>2019-08-01T09:11:08</LastSaved>
+    
+    <ScheduleFromStart>1</ScheduleFromStart>
+    
+    <StartDate>2019-08-01T08:00:00</StartDate>
+    
+    <FinishDate>2019-08-01T17:00:00</FinishDate>
+    
+    <FYStartDate>1</FYStartDate>
+    
+    <CriticalSlackLimit>0</CriticalSlackLimit>
+    
+    <CurrencyDigits>2</CurrencyDigits>
+    
+    <CurrencySymbol>$</CurrencySymbol>
+    
+    <CurrencySymbolPosition>2</CurrencySymbolPosition>
+    
+    <CalendarUID>1</CalendarUID>
+    
+    <DefaultStartTime>08:00:00</DefaultStartTime>
+    
+    <DefaultFinishTime>17:00:00</DefaultFinishTime>
+    
+    <MinutesPerDay>480</MinutesPerDay>
+    
+    <MinutesPerWeek>2400</MinutesPerWeek>
+    
+    <DaysPerMonth>20</DaysPerMonth>
+    
+    <DefaultTaskType>0</DefaultTaskType>
+    
+    <DefaultFixedCostAccrual>3</DefaultFixedCostAccrual>
+    
+    <DefaultStandardRate>0</DefaultStandardRate>
+    
+    <DefaultOvertimeRate>0</DefaultOvertimeRate>
+    
+    <DurationFormat>7</DurationFormat>
+    
+    <WorkFormat>2</WorkFormat>
+    
+    <EditableActualCosts>0</EditableActualCosts>
+    
+    <HonorConstraints>0</HonorConstraints>
+    
+    <InsertedProjectsLikeSummary>1</InsertedProjectsLikeSummary>
+    
+    <MultipleCriticalPaths>0</MultipleCriticalPaths>
+    
+    <NewTasksEffortDriven>1</NewTasksEffortDriven>
+    
+    <NewTasksEstimated>1</NewTasksEstimated>
+    
+    <SplitsInProgressTasks>1</SplitsInProgressTasks>
+    
+    <SpreadActualCost>0</SpreadActualCost>
+    
+    <SpreadPercentComplete>0</SpreadPercentComplete>
+    
+    <TaskUpdatesResource>1</TaskUpdatesResource>
+    
+    <FiscalYearStart>0</FiscalYearStart>
+    
+    <WeekStartDay>0</WeekStartDay>
+    
+    <MoveCompletedEndsBack>0</MoveCompletedEndsBack>
+    
+    <MoveRemainingStartsBack>0</MoveRemainingStartsBack>
+    
+    <MoveRemainingStartsForward>0</MoveRemainingStartsForward>
+    
+    <MoveCompletedEndsForward>0</MoveCompletedEndsForward>
+    
+    <BaselineForEarnedValue>0</BaselineForEarnedValue>
+    
+    <AutoAddNewResourcesAndTasks>1</AutoAddNewResourcesAndTasks>
+    
+    <CurrentDate>2019-08-01T09:11:08</CurrentDate>
+    
+    <MicrosoftProjectServerURL>1</MicrosoftProjectServerURL>
+    
+    <Autolink>1</Autolink>
+    
+    <NewTaskStartDate>0</NewTaskStartDate>
+    
+    <DefaultTaskEVMethod>0</DefaultTaskEVMethod>
+    
+    <ProjectExternallyEdited>0</ProjectExternallyEdited>
+    
+    <ExtendedCreationDate>1984-01-01T00:00:00</ExtendedCreationDate>
+    
+    <ActualsInSync>1</ActualsInSync>
+    
+    <RemoveFileProperties>0</RemoveFileProperties>
+    
+    <AdminProject>0</AdminProject>
+    
+    <OutlineCodes/>
+    
+    <WBSMasks/>
+    
+    <ExtendedAttributes/>
+    
+    
+    <Calendars>
+    
+    
+    <Calendar>
+    
+    <UID>1</UID>
+    
+    <Name>Standard</Name>
+    
+    <IsBaseCalendar>1</IsBaseCalendar>
+    
+    <BaseCalendarUID>-1</BaseCalendarUID>
+    
+    
+    <WeekDays>
+    
+    
+    <WeekDay>
+    
+    <DayType>1</DayType>
+    
+    <DayWorking>0</DayWorking>
+    
+    </WeekDay>
+    
+    
+    <WeekDay>
+    
+    <DayType>2</DayType>
+    
+    <DayWorking>1</DayWorking>
+    
+    
+    <WorkingTimes>
+    
+    
+    <WorkingTime>
+    
+    <FromTime>08:00:00</FromTime>
+    
+    <ToTime>12:00:00</ToTime>
+    
+    </WorkingTime>
+    
+    
+    <WorkingTime>
+    
+    <FromTime>13:00:00</FromTime>
+    
+    <ToTime>17:00:00</ToTime>
+    
+    </WorkingTime>
+    
+    </WorkingTimes>
+    
+    </WeekDay>
+    
+    
+    <WeekDay>
+    
+    <DayType>3</DayType>
+    
+    <DayWorking>1</DayWorking>
+    
+    
+    <WorkingTimes>
+    
+    
+    <WorkingTime>
+    
+    <FromTime>08:00:00</FromTime>
+    
+    <ToTime>12:00:00</ToTime>
+    
+    </WorkingTime>
+    
+    
+    <WorkingTime>
+    
+    <FromTime>13:00:00</FromTime>
+    
+    <ToTime>17:00:00</ToTime>
+    
+    </WorkingTime>
+    
+    </WorkingTimes>
+    
+    </WeekDay>
+    
+    
+    <WeekDay>
+    
+    <DayType>4</DayType>
+    
+    <DayWorking>1</DayWorking>
+    
+    
+    <WorkingTimes>
+    
+    
+    <WorkingTime>
+    
+    <FromTime>08:00:00</FromTime>
+    
+    <ToTime>12:00:00</ToTime>
+    
+    </WorkingTime>
+    
+    
+    <WorkingTime>
+    
+    <FromTime>13:00:00</FromTime>
+    
+    <ToTime>17:00:00</ToTime>
+    
+    </WorkingTime>
+    
+    </WorkingTimes>
+    
+    </WeekDay>
+    
+    
+    <WeekDay>
+    
+    <DayType>5</DayType>
+    
+    <DayWorking>1</DayWorking>
+    
+    
+    <WorkingTimes>
+    
+    
+    <WorkingTime>
+    
+    <FromTime>08:00:00</FromTime>
+    
+    <ToTime>12:00:00</ToTime>
+    
+    </WorkingTime>
+    
+    
+    <WorkingTime>
+    
+    <FromTime>13:00:00</FromTime>
+    
+    <ToTime>17:00:00</ToTime>
+    
+    </WorkingTime>
+    
+    </WorkingTimes>
+    
+    </WeekDay>
+    
+    
+    <WeekDay>
+    
+    <DayType>6</DayType>
+    
+    <DayWorking>1</DayWorking>
+    
+    
+    <WorkingTimes>
+    
+    
+    <WorkingTime>
+    
+    <FromTime>08:00:00</FromTime>
+    
+    <ToTime>12:00:00</ToTime>
+    
+    </WorkingTime>
+    
+    
+    <WorkingTime>
+    
+    <FromTime>13:00:00</FromTime>
+    
+    <ToTime>17:00:00</ToTime>
+    
+    </WorkingTime>
+    
+    </WorkingTimes>
+    
+    </WeekDay>
+    
+    
+    <WeekDay>
+    
+    <DayType>7</DayType>
+    
+    <DayWorking>0</DayWorking>
+    
+    </WeekDay>
+    
+    </WeekDays>
+    
+    </Calendar>
+    
+    </Calendars>`;
+
+    xml += `
+    <Task>
+
+    <UID>0</UID>
+    
+    <ID>0</ID>
+    
+    <Name>Task 0</Name>
+    
+    <Type>0</Type>
+    
+    <IsNull>0</IsNull>
+    
+    <CreateDate>2019-08-01T09:11:08</CreateDate>
+    
+    <WBS>0</WBS>
+    
+    <OutlineNumber>0</OutlineNumber>
+    
+    <OutlineLevel>0</OutlineLevel>
+    
+    <Priority>500</Priority>
+    
+    <Start>2019-08-01T08:00:00</Start>
+    
+    <Finish>2019-08-01T17:00:00</Finish>
+    
+    <Duration>PT8H0M0S</Duration>
+    
+    <DurationFormat>39</DurationFormat>
+    
+    <Work>PT0H0M0S</Work>
+    
+    <ResumeValid>0</ResumeValid>
+    
+    <EffortDriven>1</EffortDriven>
+    
+    <Recurring>0</Recurring>
+    
+    <OverAllocated>0</OverAllocated>
+    
+    <Estimated>1</Estimated>
+    
+    <Milestone>0</Milestone>
+    
+    <Summary>1</Summary>
+    
+    <Critical>0</Critical>
+    
+    <IsSubproject>0</IsSubproject>
+    
+    <IsSubprojectReadOnly>0</IsSubprojectReadOnly>
+    
+    <ExternalTask>0</ExternalTask>
+    
+    <EarlyStart>2019-08-01T08:00:00</EarlyStart>
+    
+    <EarlyFinish>2019-08-01T17:00:00</EarlyFinish>
+    
+    <LateStart>2019-08-01T08:00:00</LateStart>
+    
+    <LateFinish>2019-08-01T17:00:00</LateFinish>
+    
+    <StartVariance>0</StartVariance>
+    
+    <FinishVariance>0</FinishVariance>
+    
+    <WorkVariance>0</WorkVariance>
+    
+    <FreeSlack>0</FreeSlack>
+    
+    <TotalSlack>0</TotalSlack>
+    
+    <FixedCost>0</FixedCost>
+    
+    <FixedCostAccrual>3</FixedCostAccrual>
+    
+    <PercentComplete>0</PercentComplete>
+    
+    <PercentWorkComplete>0</PercentWorkComplete>
+    
+    <Cost>0</Cost>
+    
+    <OvertimeCost>0</OvertimeCost>
+    
+    <OvertimeWork>PT0H0M0S</OvertimeWork>
+    
+    <ActualDuration>PT0H0M0S</ActualDuration>
+    
+    <ActualCost>0</ActualCost>
+    
+    <ActualOvertimeCost>0</ActualOvertimeCost>
+    
+    <ActualWork>PT0H0M0S</ActualWork>
+    
+    <ActualOvertimeWork>PT0H0M0S</ActualOvertimeWork>
+    
+    <RegularWork>PT0H0M0S</RegularWork>
+    
+    <RemainingDuration>PT8H0M0S</RemainingDuration>
+    
+    <RemainingCost>0</RemainingCost>
+    
+    <RemainingWork>PT0H0M0S</RemainingWork>
+    
+    <RemainingOvertimeCost>0</RemainingOvertimeCost>
+    
+    <RemainingOvertimeWork>PT0H0M0S</RemainingOvertimeWork>
+    
+    <ACWP>0</ACWP>
+    
+    <CV>0</CV>
+    
+    <ConstraintType>0</ConstraintType>
+    
+    <CalendarUID>-1</CalendarUID>
+    
+    <LevelAssignments>1</LevelAssignments>
+    
+    <LevelingCanSplit>1</LevelingCanSplit>
+    
+    <LevelingDelay>0</LevelingDelay>
+    
+    <LevelingDelayFormat>8</LevelingDelayFormat>
+    
+    <IgnoreResourceCalendar>0</IgnoreResourceCalendar>
+    
+    <HideBar>0</HideBar>
+    
+    <Rollup>0</Rollup>
+    
+    <BCWS>0</BCWS>
+    
+    <BCWP>0</BCWP>
+    
+    <PhysicalPercentComplete>0</PhysicalPercentComplete>
+    
+    <EarnedValueMethod>0</EarnedValueMethod>
+    
+    <IsPublished>1</IsPublished>
+    
+    <CommitmentType>0</CommitmentType>
+    
+    </Task>`;
+
+    xml += '<Tasks>';
+
+    xml += `
+    <Task>
+
+    <UID>${UID}</UID>
+
+    <ID>${UID}</ID>
+    
+    <Name>${pN}</Name>
+    
+    <Type>0</Type>
+    
+    <IsNull>0</IsNull>
+    
+    <CreateDate>2019-08-01T09:11:08</CreateDate>
+    
+    <WBS>${1}</WBS>
+    
+    <OutlineNumber>0</OutlineNumber>
+    
+    <OutlineLevel>0</OutlineLevel>
+    
+    <Priority>500</Priority>
+    
+    <Start>2019-08-01T08:00:00</Start>
+    
+    <Finish>2019-08-01T17:00:00</Finish>
+    
+    <Duration>PT8H0M0S</Duration>
+    
+    <DurationFormat>39</DurationFormat>
+    
+    <Work>PT0H0M0S</Work>
+    
+    <ResumeValid>0</ResumeValid>
+    
+    <EffortDriven>1</EffortDriven>
+    
+    <Recurring>0</Recurring>
+    
+    <OverAllocated>0</OverAllocated>
+    
+    <Estimated>1</Estimated>
+    
+    <Milestone>0</Milestone>
+    
+    <Summary>1</Summary>
+    
+    <Critical>0</Critical>
+    
+    <IsSubproject>0</IsSubproject>
+    
+    <IsSubprojectReadOnly>0</IsSubprojectReadOnly>
+    
+    <ExternalTask>0</ExternalTask>
+    
+    <EarlyStart>2019-08-01T08:00:00</EarlyStart>
+    
+    <EarlyFinish>2019-08-01T17:00:00</EarlyFinish>
+    
+    <LateStart>2019-08-01T08:00:00</LateStart>
+    
+    <LateFinish>2019-08-01T17:00:00</LateFinish>
+    
+    <StartVariance>0</StartVariance>
+    
+    <FinishVariance>0</FinishVariance>
+    
+    <WorkVariance>0</WorkVariance>
+    
+    <FreeSlack>0</FreeSlack>
+    
+    <TotalSlack>0</TotalSlack>
+    
+    <FixedCost>0</FixedCost>
+    
+    <FixedCostAccrual>3</FixedCostAccrual>
+    
+    <PercentComplete>0</PercentComplete>
+    
+    <PercentWorkComplete>0</PercentWorkComplete>
+    
+    <Cost>0</Cost>
+    
+    <OvertimeCost>0</OvertimeCost>
+    
+    <OvertimeWork>PT0H0M0S</OvertimeWork>
+    
+    <ActualDuration>PT0H0M0S</ActualDuration>
+    
+    <ActualCost>0</ActualCost>
+    
+    <ActualOvertimeCost>0</ActualOvertimeCost>
+    
+    <ActualWork>PT0H0M0S</ActualWork>
+    
+    <ActualOvertimeWork>PT0H0M0S</ActualOvertimeWork>
+    
+    <RegularWork>PT0H0M0S</RegularWork>
+    
+    <RemainingDuration>PT8H0M0S</RemainingDuration>
+    
+    <RemainingCost>0</RemainingCost>
+    
+    <RemainingWork>PT0H0M0S</RemainingWork>
+    
+    <RemainingOvertimeCost>0</RemainingOvertimeCost>
+    
+    <RemainingOvertimeWork>PT0H0M0S</RemainingOvertimeWork>
+    
+    <ACWP>0</ACWP>
+    
+    <CV>0</CV>
+    
+    <ConstraintType>0</ConstraintType>
+    
+    <CalendarUID>-1</CalendarUID>
+    
+    <LevelAssignments>1</LevelAssignments>
+    
+    <LevelingCanSplit>1</LevelingCanSplit>
+    
+    <LevelingDelay>0</LevelingDelay>
+    
+    <LevelingDelayFormat>8</LevelingDelayFormat>
+    
+    <IgnoreResourceCalendar>0</IgnoreResourceCalendar>
+    
+    <HideBar>0</HideBar>
+    
+    <Rollup>0</Rollup>
+    
+    <BCWS>0</BCWS>
+    
+    <BCWP>0</BCWP>
+    
+    <PhysicalPercentComplete>0</PhysicalPercentComplete>
+    
+    <EarnedValueMethod>0</EarnedValueMethod>
+    
+    <IsPublished>1</IsPublished>
+    
+    <CommitmentType>0</CommitmentType>
+    
+    </Task>`
+    UID++;
+    console.log(UID);
+    enumarationComponents();
+
+    xml += '</Tasks>';
+
+    xml += `
+    <Resources/>
+
+    <Assignments/>
+    
+    </Project>`;
+
+
+    // document.getElementById('projectNameSpan').innerText = xml;
+    download(pN+'.xml',xml);
+
+})
+
+
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/xml;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
