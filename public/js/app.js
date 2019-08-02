@@ -805,6 +805,9 @@ function enumarationComponents(whichComponent, numberOfParent,sira) {
             firstChilds[i].querySelector('.numberSpan').innerText = (i+1);
         }
         let itsName = firstChilds[i].querySelector('.nameSpan').innerText;
+        // console.log((firstChilds[i].querySelector('.numberSpan').innerText), (firstChilds[i].querySelector('.numberSpan').innerText).length)
+        let outlineLevel = (((firstChilds[i].querySelector('.numberSpan').innerText).length /2) | 0) +2;
+        console.log(outlineLevel);
         // itsName = removeLastDot(itsName);
         xml += `
         <Task>
@@ -823,9 +826,9 @@ function enumarationComponents(whichComponent, numberOfParent,sira) {
         
         <WBS>${'1.'+firstChilds[i].querySelector('.numberSpan').innerText}</WBS>
         
-        <OutlineNumber>0</OutlineNumber>
+        <OutlineNumber>${'1.'+firstChilds[i].querySelector('.numberSpan').innerText}</OutlineNumber>
         
-        <OutlineLevel>0</OutlineLevel>
+        <OutlineLevel>${outlineLevel}</OutlineLevel>
         
         <Priority>500</Priority>
         
@@ -1477,9 +1480,9 @@ document.getElementById('toXMLButton').addEventListener('click',()=> {
     
     <WBS>1</WBS>
     
-    <OutlineNumber>0</OutlineNumber>
+    <OutlineNumber>1</OutlineNumber>
     
-    <OutlineLevel>0</OutlineLevel>
+    <OutlineLevel>1</OutlineLevel>
     
     <Priority>500</Priority>
     
