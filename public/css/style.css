@@ -223,6 +223,16 @@
 
 }
 
+.TaBCanvas {
+
+    float: left;
+    width: 30px;
+    position: relative;
+    left: 64px;
+    top: 70px;
+    color: red;
+}
+
 
 .otherCanvas {
 

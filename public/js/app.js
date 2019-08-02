@@ -181,6 +181,10 @@ function addComponent(parentComponent) {
 
         convertingToSbS();
 
+    } else {
+
+        convertingToTaB();
+
     }
     enumarationComponents();
 
@@ -493,20 +497,63 @@ document.getElementById('normalComponentButton').addEventListener('click',()=>{
 
 function convertingToTaB() {
 
+    const myDiv = oldSelectElement.parentElement;
+    if(myDiv==null) {
+        return;
+    }
     try {
-        $(oldSelectElement.parentElement).removeClass('otherComponent');
-        $(oldSelectElement.parentElement.querySelector('.childComponentPlace'))
+        $(myDiv).removeClass('otherComponent');
+        $(myDiv.querySelector('.childComponentPlace'))
         .removeClass('otherComponentChildComponentPlace');
-        $(oldSelectElement.parentElement.querySelector('.childComponentPlace'))
+        $(myDiv.querySelector('.childComponentPlace'))
         .addClass('normalComponentChildComponentPlace');
-        if(oldSelectElement.parentElement.querySelector('canvas')) {
 
-            $(oldSelectElement.parentElement.querySelector('canvas')).remove();
+        if(myDiv.querySelector('canvas')) {
+
+            $(myDiv.querySelector('canvas')).remove();
 
         }
-    } catch {
+
+        // normalCanvasConstructor(myDiv);
+
+    } catch(e) {
+
+        console.log(e);
 
     }
+
+}
+
+function normalCanvasConstructor(myDiv) {
+    const normalCanvas = document.createElement('canvas');
+    normalCanvas.className = 'TaBCanvas';
+    childCountElement = myDiv.querySelector('.childComponentPlace');
+    childCount = $(childCountElement)[0].children.length;
+    $(normalCanvas).insertBefore(myDiv.querySelector('.childComponentPlace'));
+    if(childCount!=0) {
+        normalCanvas.style.height = childCount*75 +'px';
+        var ctx = normalCanvas.getContext("2d");
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 16;
+        ctx.beginPath();
+        ctx.moveTo(0,0);
+        ctx.lineTo(0,childCount*75);
+        // ctx.lineTo(20,0);
+        // ctx.lineTo(0,0);
+        let i = 1;
+        ctx.moveTo(0,1*75);
+        for(i=1;i<childCount+1;i++) {
+            ctx.lineTo(20,i*75);
+            ctx.moveTo(0,(i+1)*75);
+        }
+        ctx.stroke();
+        
+
+
+    } else {
+        normalCanvas.style.height = '0px';
+    }
+    
 
 }
 
@@ -568,11 +615,20 @@ function drop(ev) {
         var x = event.clientX;
         var y = event.clientY;
         if(x<rect.right-30 && y<rect.top+32 && x>rect.left+30) {
+            if(oldSelectElement == newParent.parentElement.parentElement.parentElement) {
+
+            } else {
+                $(oldSelectElement).insertBefore(newParent.parentElement);
+                oldSelectElement.querySelector('.childComponentPlace').appendChild(newParent.parentElement);
+            }
             
-            $(oldSelectElement).insertBefore(newParent.parentElement);
-            oldSelectElement.querySelector('.childComponentPlace').appendChild(newParent.parentElement);
+            
         } else if(x>rect.right-30) {
-            $(oldSelectElement).insertAfter(newParent.parentElement);
+            if(oldSelectElement == newParent.parentElement.parentElement.parentElement) {
+
+            } else {
+                $(oldSelectElement).insertAfter(newParent.parentElement);
+            }
         } else if(x<rect.left+30){
             if(newParent.parentElement.parentElement.parentElement == oldSelectElement) {
 
