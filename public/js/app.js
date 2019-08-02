@@ -820,7 +820,7 @@ function enumarationComponents(whichComponent, numberOfParent,sira) {
         
         <CreateDate>2019-08-01T09:11:08</CreateDate>
         
-        <WBS>${'1.' + firstChilds[i].querySelector('.numberSpan').innerText}</WBS>
+        <WBS>${firstChilds[i].querySelector('.numberSpan').innerText}</WBS>
         
         <OutlineNumber>0</OutlineNumber>
         
@@ -1473,7 +1473,7 @@ document.getElementById('toXMLButton').addEventListener('click',()=> {
     
     <CreateDate>2019-08-01T09:11:08</CreateDate>
     
-    <WBS>${1}</WBS>
+    <WBS>0</WBS>
     
     <OutlineNumber>0</OutlineNumber>
     
@@ -1603,7 +1603,6 @@ document.getElementById('toXMLButton').addEventListener('click',()=> {
     
     </Task>`
     UID++;
-    console.log(UID);
     enumarationComponents();
 
     xml += '</Tasks>';
