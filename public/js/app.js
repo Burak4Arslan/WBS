@@ -402,7 +402,7 @@ document.getElementById('copyStyleButton').addEventListener('click',()=>{
 function copyStyle(a) {
 
     if(a==undefined) {
-        if(oldSelectElement!='' && !(oldSelectElement.className.includes('projectNameDiv'))) {
+        if(oldSelectElement!='') {
             copiedStyle = oldSelectElement.style.backgroundColor;
             document.getElementById('copyStyleButton').innerText = 'Copied';
             document.getElementById('copyStyleButton').style.backgroundColor = copiedStyle;
