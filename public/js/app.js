@@ -800,11 +800,12 @@ function enumarationComponents(whichComponent, numberOfParent,sira) {
     for(let i=0; i<firstChildCount;i++) {
 
         if(fol == 1) {
-            firstChilds[i].querySelector('.numberSpan').innerText = numberOfParent + (i+1) + "."; 
+            firstChilds[i].querySelector('.numberSpan').innerText = numberOfParent + '.' + (i+1); 
         } else {
-            firstChilds[i].querySelector('.numberSpan').innerText = (i+1) + ".";
+            firstChilds[i].querySelector('.numberSpan').innerText = (i+1);
         }
-
+        let itsName = firstChilds[i].querySelector('.nameSpan').innerText;
+        // itsName = removeLastDot(itsName);
         xml += `
         <Task>
 
@@ -812,7 +813,7 @@ function enumarationComponents(whichComponent, numberOfParent,sira) {
 
         <ID>${UID}</ID>
         
-        <Name>${firstChilds[i].querySelector('.nameSpan').innerText}</Name>
+        <Name>${itsName}</Name>
         
         <Type>0</Type>
         
@@ -820,7 +821,7 @@ function enumarationComponents(whichComponent, numberOfParent,sira) {
         
         <CreateDate>2019-08-01T09:11:08</CreateDate>
         
-        <WBS>${firstChilds[i].querySelector('.numberSpan').innerText}</WBS>
+        <WBS>${'1.'+firstChilds[i].querySelector('.numberSpan').innerText}</WBS>
         
         <OutlineNumber>0</OutlineNumber>
         
@@ -1310,6 +1311,8 @@ document.getElementById('toXMLButton').addEventListener('click',()=> {
     </Calendar>
     
     </Calendars>`;
+    
+    xml += '<Tasks>';
 
     xml += `
     <Task>
@@ -1456,7 +1459,6 @@ document.getElementById('toXMLButton').addEventListener('click',()=> {
     
     </Task>`;
 
-    xml += '<Tasks>';
 
     xml += `
     <Task>
@@ -1473,7 +1475,7 @@ document.getElementById('toXMLButton').addEventListener('click',()=> {
     
     <CreateDate>2019-08-01T09:11:08</CreateDate>
     
-    <WBS>0</WBS>
+    <WBS>1</WBS>
     
     <OutlineNumber>0</OutlineNumber>
     
@@ -1632,4 +1634,13 @@ function download(filename, text) {
     element.click();
 
     document.body.removeChild(element);
+}
+
+
+function removeLastDot(changingName) {
+
+    let pos = changingName.lastIndexOf('.');
+    changingName.slice(0,pos-1);
+    return changingName;
+
 }
