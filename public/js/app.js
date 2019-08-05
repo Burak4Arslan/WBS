@@ -787,8 +787,14 @@ function enumarationComponents(whichComponent, numberOfParent,sira) {
         }
         let itsName = firstChilds[i].querySelector('.nameSpan').innerText;
         let outlineLevel = (((firstChilds[i].querySelector('.numberSpan').innerText).length /2) | 0) +2;
-        console.log(outlineLevel);
+        // console.log(outlineLevel);
         // itsName = removeLastDot(itsName);
+        let haveKids=0;
+        console.log($(firstChilds[i])[0].querySelector('.childComponentPlace').children.length);
+        if($(firstChilds[i])[0].querySelector('.childComponentPlace').children.length>0) {
+            haveKids=1;
+        }
+        // console.log(haveKids);
         xml += `
         <Task>
 
@@ -834,7 +840,7 @@ function enumarationComponents(whichComponent, numberOfParent,sira) {
         
         <Milestone>0</Milestone>
         
-        <Summary>1</Summary>
+        <Summary>${haveKids}</Summary>
         
         <Critical>0</Critical>
         
@@ -1284,7 +1290,7 @@ document.getElementById('toXMLButton').addEventListener('click',()=> {
     
     <ID>0</ID>
     
-    <Name>Task 0</Name>
+    <Name>WBS Element</Name>
     
     <Type>0</Type>
     
