@@ -209,7 +209,6 @@ document.getElementById('deleteButton').addEventListener('click',()=>{
 })
 
 function deleteComponent(itemToDelete) {
-    // var parentOfDeletedComponent;
     try {
         if(!(itemToDelete.parentElement.parentElement.className.includes('dif'))){
             parentOfDeletedComponent = itemToDelete.parentElement.parentElement;
@@ -219,8 +218,6 @@ function deleteComponent(itemToDelete) {
     }
 
     $(itemToDelete).remove();
-    // oldSelectElement = parentOfDeletedComponent.querySelector('.componentNameDiv');
-    // $(oldSelectElement).addClass('selectedComponent')
     try {
         if(oldSelectElement.parentElement.className.includes('otherComponent')) {
 
@@ -544,8 +541,6 @@ function normalCanvasConstructor(myDiv) {
         ctx.beginPath();
         ctx.moveTo(0,0);
         ctx.lineTo(0,childCount*75);
-        // ctx.lineTo(20,0);
-        // ctx.lineTo(0,0);
         let i = 1;
         ctx.moveTo(0,1*75);
         for(i=1;i<childCount+1;i++) {
@@ -588,7 +583,6 @@ function randomColorFunction() {
 }
 
 function allowDrop(ev) {
-    // console.log(ev.target);
     ev.preventDefault();
     arrowCreating(ev);
   }
@@ -603,7 +597,6 @@ function drop(ev) {
     theArrow.style.display = 'none';
     var newParent = ev.target;
     if(newParent.id=='projectDiv' || newParent.id=='projectNameDiv' || newParent.id=='projectNameSpan') {
-        // document.querySelector('.dif').appendChild(oldSelectElement);
         $(oldSelectElement).insertBefore($('#rightSideDiv1'));
         enumarationComponents()
         return;
@@ -615,9 +608,6 @@ function drop(ev) {
     var elem = $(oldSelectElement).next();
     try {
         var rect = newParent.getBoundingClientRect();
-        // console.log(rect.top, rect.right, rect.bottom, rect.left);
-        // console.log('yler' ,y,rect.top)
-        // console.log('xler' ,x,rect.right);
         var x = event.clientX;
         var y = event.clientY;
         if(x<rect.right-30 && y<rect.top+32 && x>rect.left+30) {
@@ -645,19 +635,12 @@ function drop(ev) {
             
             newParent.parentElement.querySelector('.childComponentPlace').appendChild(oldSelectElement);
         }
-        // newParent.parentElement.querySelector('.childComponentPlace').appendChild(oldSelectElement);
     } catch(e) {
-        // console.log('nanii', test);
-
         if(e.name =='HierarchyRequestError') {
             $(oldSelectElement).insertBefore(elem);
-            // console.log(oldSelectElement,newParent.parentElement);
-            // console.log(e);
-
         }
 
     }
-    // oldSelectElement.querySelector('.componentNameDiv').style.backgroundColor = newParent.style.backgroundColor;
 
     oldSelectElement='';
     enumarationComponents()
@@ -680,8 +663,6 @@ function arrowCreating(e) {
         
         var x = event.clientX;
         var y = event.clientY;
-        // console.log('yeler' , y, rect.top )
-        // console.log('xler' , x, rect.right )
         if(x<rect.right-30 && y<rect.top+32 && x>rect.left+30) { //top
             theArrow.innerText = '↑';
             theArrow.style.top = (rect.top-70) +'px';
@@ -805,7 +786,6 @@ function enumarationComponents(whichComponent, numberOfParent,sira) {
             firstChilds[i].querySelector('.numberSpan').innerText = (i+1);
         }
         let itsName = firstChilds[i].querySelector('.nameSpan').innerText;
-        // console.log((firstChilds[i].querySelector('.numberSpan').innerText), (firstChilds[i].querySelector('.numberSpan').innerText).length)
         let outlineLevel = (((firstChilds[i].querySelector('.numberSpan').innerText).length /2) | 0) +2;
         console.log(outlineLevel);
         // itsName = removeLastDot(itsName);
@@ -955,28 +935,8 @@ function enumarationComponents(whichComponent, numberOfParent,sira) {
         </Task>`;
 
         UID++;
-
-
-
-
-        
-        // let k=0;
-        // for(k=0;k<sira;k++) {
-        //     xml += ' ';
-        // }
-        // xml += '<task>\n';
-        // for(k=0;k<sira+1;k++) {
-        //     xml += ' ';
-        // }
-        // xml += '<name>'+firstChilds[i].querySelector('.nameSpan').innerText+'</name>\n';
-        // for(k=0;k<sira-1;k++) {
-        //     xml += ' ';
-        // }
-        // xml += '</task>\n';
-        // sira++;
         enumarationComponents(firstChilds[i],firstChilds[i].querySelector('.numberSpan').innerText,sira);
         
-        // sira--;
     }
 
     
@@ -1618,8 +1578,6 @@ document.getElementById('toXMLButton').addEventListener('click',()=> {
     <Assignments/>
     
     </Project>`;
-
-
     // document.getElementById('projectNameSpan').innerText = xml;
     download(pN+'.xml',xml);
 
