@@ -781,20 +781,18 @@ function enumarationComponents(whichComponent, numberOfParent,sira) {
     for(let i=0; i<firstChildCount;i++) {
 
         if(fol == 1) {
-            firstChilds[i].querySelector('.numberSpan').innerText = numberOfParent + '.' + (i+1); 
+            firstChilds[i].querySelector('.numberSpan').innerText = numberOfParent + (i+1) + '.' ; 
         } else {
-            firstChilds[i].querySelector('.numberSpan').innerText = (i+1);
+            firstChilds[i].querySelector('.numberSpan').innerText = (i+1) + '.';
         }
         let itsName = firstChilds[i].querySelector('.nameSpan').innerText;
         let outlineLevel = (((firstChilds[i].querySelector('.numberSpan').innerText).length /2) | 0) +2;
-        // console.log(outlineLevel);
         // itsName = removeLastDot(itsName);
         let haveKids=0;
         console.log($(firstChilds[i])[0].querySelector('.childComponentPlace').children.length);
         if($(firstChilds[i])[0].querySelector('.childComponentPlace').children.length>0) {
             haveKids=1;
         }
-        // console.log(haveKids);
         xml += `
         <Task>
 
@@ -1606,8 +1604,7 @@ function download(filename, text) {
 
 function removeLastDot(changingName) {
 
-    let pos = changingName.lastIndexOf('.');
-    changingName.slice(0,pos-1);
+    changingName = changingName.slice(0,changingName.length-1);
     return changingName;
 
 }
