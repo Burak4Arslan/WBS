@@ -209,13 +209,6 @@ document.getElementById('deleteButton').addEventListener('click',()=>{
 })
 
 function deleteComponent(itemToDelete) {
-    try {
-        if(!(itemToDelete.parentElement.parentElement.className.includes('dif'))){
-            parentOfDeletedComponent = itemToDelete.parentElement.parentElement;
-        }
-    } catch {
-
-    }
 
     $(itemToDelete).remove();
     try {
@@ -227,6 +220,7 @@ function deleteComponent(itemToDelete) {
     } catch {
 
     }
+    oldSelectElement = '';
     enumarationComponents()
 }
 
